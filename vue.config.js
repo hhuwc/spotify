@@ -11,13 +11,14 @@ module.exports = {
     productionSourceMap: false,
     chainWebpack: (config) => {
         config.resolve.alias
-            .set('@', resolve('src'))
+            .set('base', resolve('src/base'))
+            .set('common', resolve('src/common'))
             .set('components', resolve('src/components'))
             .set('store', resolve('src/store'))
             .set('theme', resolve('src/theme'))
     },
     devServer: {
-        port: 8010,
-        proxy: 'http://localhost:4000'
+        port: 8048,
+        proxy: 'http://localhost:3000'
     },
 };
