@@ -42,8 +42,6 @@ export default {
   mounted() {
     let self = this;
     axios.get("/personalized").then(function(response) {
-      // handle success
-      console.log(self);
       self.recommends = response.data.result.filter(
         el => el.name && el.name.toLowerCase().indexOf("vip") < 0
       );
@@ -62,28 +60,10 @@ $--base-color: #fcfafa;
 .home-page {
   color: $--base-color;
   background-color: $--background-color;
-
-  // 加载中
-  .loading-rec {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-  // 最近播放 以及推荐歌曲部分的样式
-  .scroll-wrapper {
-    top: 60px;
-    position: fixed;
-    bottom: 60px;
-
-    width: 100%;
-    .scroll-block {
-      color: $--base-color;
-      background-color: $--background-color;
-      width: 100%;
-      text-align: center;
-    }
-  }
+  position: absolute;
+  top: 0;
+  bottom: 60px;
+  width: 100%;
 
   .top-setting {
     padding-top: 27px;
@@ -95,6 +75,28 @@ $--base-color: #fcfafa;
 
     > i.spfont {
       font-size: 25px !important;
+    }
+  }
+
+  // 加载中
+  .loading-rec {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  // 最近播放 以及推荐歌曲部分的样式
+  .scroll-wrapper {
+    top: 60px;
+    position: absolute;
+    bottom: 60px;
+
+    width: 100%;
+    .scroll-block {
+      color: $--base-color;
+      background-color: $--background-color;
+      width: 100%;
+      text-align: center;
     }
   }
 }

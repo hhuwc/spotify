@@ -1,19 +1,19 @@
 <template>
   <div class="main-tab-wrapper">
     <div class="main-tab">
-      <router-link tag="div" class="tab-item" to="home">
+      <router-link tag="div" class="tab-item" to="/home">
         <i class="spfont sp-home"></i>
         <span>Home</span>
       </router-link>
-      <router-link tag="div" class="tab-item" to="search">
+      <router-link tag="div" class="tab-item" to="/search">
         <i class="spfont sp-search"></i>
         <span>Search</span>
       </router-link>
-      <router-link tag="div" class="tab-item" to="library">
+      <router-link tag="div" class="tab-item" to="/library">
         <i class="spfont sp-library"></i>
         <span>Your Library</span>
       </router-link>
-      <router-link tag="div" class="tab-item" to="premium">
+      <router-link tag="div" class="tab-item" to="/premium">
         <i class="spfont sp-spotify"></i>
         <span>Premium</span>
       </router-link>
@@ -33,7 +33,7 @@ $active-color: #fefefe;
   width: 100%;
   background-color: $background;
   color: $plain-color;
-  position: fixed;
+  position: absolute;
   bottom: 0;
   z-index: 10;
 
