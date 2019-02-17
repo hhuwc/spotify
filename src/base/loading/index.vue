@@ -1,8 +1,6 @@
 <template>
   <div class="loading-wrapper">
-    <div class="loading-circle" :style="style">
-      <div class="circle-inner"></div>
-    </div>
+    <div class="loading-circle" :style="style"></div>
   </div>
 </template>
 
@@ -53,9 +51,11 @@ $--background-color: #111111;
     animation: spin 2s infinite linear;
     margin: 0 auto;
 
-    .circle-inner {
+    &::before {
       height: 80%;
       width: 80%;
+      display: block;
+      content: "";
       background-color: $--background-color;
       border-radius: 100%;
       position: absolute;
