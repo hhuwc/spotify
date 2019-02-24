@@ -3,10 +3,10 @@
     <h1>{{title}}</h1>
 
     <ul ref="songs" class="recommend-list-list">
-      <li v-for="music in musics" :key="music.name" class="song-album">
+      <li v-for="music in musics" :key="music.name" class="song-album" @click="click">
         <div class="album-pic">
           <i class="spfont sp-spotify"></i>
-          <img :src="music.picUrl" alt>
+          <img v-lazy="music.picUrl" alt>
         </div>
         <div class="album-title">{{music.name}}</div>
       </li>
@@ -32,6 +32,13 @@ export default {
     return {
       num: 10
     };
+  },
+  methods: {
+    click() {
+      this.$router.push({
+        path: "/home/playlist/1234"
+      });
+    }
   }
 };
 </script>
@@ -46,12 +53,15 @@ export default {
   }
 
   .recommend-list-list {
+    display: inline-flex;
+    justify-content: center;
+    flex-wrap: wrap;
     .song-album {
-      margin-top: 22px;
-      margin-bottom: 22px;
+      margin: 10px 10px;
+
       .album-pic {
-        height: 250px;
-        width: 250px;
+        height: 150px;
+        width: 150px;
         margin: 0 auto;
         background-color: #111;
         margin-bottom: 5px;
@@ -67,9 +77,12 @@ export default {
         }
       }
       .album-title {
-        padding: 0 40px;
+        width: 150px;
         font-size: 16px;
-        line-height: 1.5;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        height: 30px;
       }
     }
   }

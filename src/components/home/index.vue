@@ -1,23 +1,27 @@
 <template>
-  <div class="home-page">
+  <div class="home-page" :style="bottom">
     <div class="top-setting">
-      <i class="spfont sp-setting"></i>
+      <router-link tag="div" class="tab-item" to="/home/setting">
+        <i class="spfont sp-setting"></i>
+      </router-link>
     </div>
     <loading v-if="isLoading" class="loading-rec"></loading>
-    <scroll class="scroll-wrapper" @scroll="scroll" v-else>
+    <scroll class="scroll-wrapper" v-else>
       <div class="scroll-block">
         <recent-play></recent-play>
-        <recommend-list title="专为你打造" :musics="recommends"></recommend-list>
+        <recommend-list title="专为你打造" :musics="personalized"></recommend-list>
       </div>
     </scroll>
+    <router-view></router-view>
   </div>
 </template>
 <script>
 import RecentPlay from "./recent-play";
+import { mapGetters, mapState, mapActions } from "vuex";
 import RecommendList from "./recommend-list";
 import Scroll from "base/scroll";
 import Loading from "base/loading";
-import axios from "axios";
+
 export default {
   components: {
     RecentPlay,
@@ -25,32 +29,20 @@ export default {
     Scroll,
     Loading
   },
-  data() {
-    return {
-      recommends: []
-    };
-  },
-  watch: {
-    recommends(newVal, oldVal) {}
-  },
   computed: {
+    ...mapGetters(["bottom"]),
+    ...mapState(["personalized"]),
+
     isLoading() {
-      return this.recommends.length === 0;
+      return this.personalized.length === 0;
     }
   },
 
   mounted() {
-    let self = this;
-    axios.get("/personalized").then(function(response) {
-      self.recommends = response.data.result.filter(
-        el => el.name && el.name.toLowerCase().indexOf("vip") < 0
-      );
-    });
+    this.getPersonalized();
   },
   methods: {
-    scroll(pos) {
-      console.log(pos);
-    }
+    ...mapActions(["getPersonalized"])
   }
 };
 </script>
@@ -64,6 +56,7 @@ $--base-color: #fcfafa;
   top: 0;
   bottom: 60px;
   width: 100%;
+  overflow: hidden;
 
   .top-setting {
     padding-top: 27px;
@@ -73,7 +66,7 @@ $--base-color: #fcfafa;
     display: flex;
     flex-flow: row-reverse;
 
-    > i.spfont {
+    i.spfont {
       font-size: 25px !important;
     }
   }
@@ -89,8 +82,7 @@ $--base-color: #fcfafa;
   .scroll-wrapper {
     top: 60px;
     position: absolute;
-    bottom: 60px;
-
+    bottom: 0;
     width: 100%;
     .scroll-block {
       color: $--base-color;

@@ -41,8 +41,8 @@ export default {
         margin-left: 20px;
 
         .album-pic {
-          height: 150px;
-          width: 150px;
+          height: 100px;
+          width: 100px;
           background-color: #988907;
         }
 

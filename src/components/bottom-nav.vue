@@ -9,13 +9,13 @@
         <i class="spfont sp-search"></i>
         <span>Search</span>
       </router-link>
+      <router-link tag="div" class="tab-item" to="/rank">
+        <i class="spfont sp-spotify"></i>
+        <span>Rank</span>
+      </router-link>
       <router-link tag="div" class="tab-item" to="/library">
         <i class="spfont sp-library"></i>
         <span>Your Library</span>
-      </router-link>
-      <router-link tag="div" class="tab-item" to="/premium">
-        <i class="spfont sp-spotify"></i>
-        <span>Premium</span>
       </router-link>
     </div>
   </div>
@@ -27,7 +27,7 @@ export default {};
 $background: #202427;
 $plain-color: #abafb2;
 $active-color: #fefefe;
-
+$-z-index: 100;
 .main-tab-wrapper {
   height: 60px;
   width: 100%;
@@ -35,7 +35,7 @@ $active-color: #fefefe;
   color: $plain-color;
   position: absolute;
   bottom: 0;
-  z-index: 10;
+  z-index: $-z-index;
 
   .main-tab {
     display: flex;
