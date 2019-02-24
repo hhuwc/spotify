@@ -1,0 +1,3 @@
+
+export const SHOW_MINI = "SHOW_MINI";
+export const SET_PERSONALIZED = "SET_PERSONALIZED";
