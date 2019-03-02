@@ -19,6 +19,13 @@ module.exports = {
     },
     devServer: {
         port: 8048,
-        proxy: 'http://localhost:3000'
+        proxy: {
+            "/": {
+                target: 'http://localhost:4000'
+            },
+            "/py": {
+                target: 'http://localhost:5555'
+            }
+        }
     },
 };
