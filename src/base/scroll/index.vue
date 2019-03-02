@@ -10,7 +10,7 @@ export default {
   props: {
     probeType: {
       type: Number,
-      default: 2
+      default: 3
     },
     click: {
       type: Boolean,
@@ -26,6 +26,11 @@ export default {
     },
     // 是否监听滚动
     listenScroll: {
+      type: Boolean,
+      default: false
+    },
+    // 是否开启回弹效果
+    bounce: {
       type: Boolean,
       default: false
     }
@@ -46,7 +51,8 @@ export default {
         probeType: this.probeType,
         click: this.click,
         scrollX: this.scrollX,
-        scrollY: this.scrollY
+        scrollY: this.scrollY,
+        bounce: this.bounce
       };
 
       this.scroll = new BScroll(this.$refs.wrapper, options);
