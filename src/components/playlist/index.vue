@@ -10,13 +10,13 @@
           <i class="spfont sp-love"></i>&nbsp;
           <i class="spfont sp-more"></i>&nbsp;
         </span>
-        <div class="title-content">{{this.title}}</div>
+        <div class="title-content" :style="titleAlpha">{{this.name}}</div>
       </div>
       <div class="intro" :style="introBlockBGC">
-        <div class="intro-info" :style="alpha">
+        <div class="intro-info" :style="imgAlpha">
           <img :src="picUrl" alt>
-          
-          <p>{{this.title}}rqwfrsadfasdfgasdfasdfszfdASassadfasdfasdfasdfweqgqebvasdgasdfgasdasgghasfasdf</p>
+
+          <p>{{this.name}}</p>
         </div>
       </div>
       <div class="play-button" :style="buttonTop">PLAY</div>
@@ -29,8 +29,9 @@
   </transition>
 </template>
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapState } from "vuex";
 import Scroll from "base/scroll";
+import axios from "axios";
 export default {
   name: "playlist",
   components: {
@@ -39,69 +40,89 @@ export default {
   data() {
     return {
       scrollY: 0,
-      title: "歌曲标题",
-      picUrl:
-        "https://p1.music.126.net/VJTPl12r4jKIThmjy5ROTg==/109951163887710551.jpg",
+      id: "",
+      name: "",
+      picUrl: "",
       // 歌曲描述
       disc: "",
-      // 图片主色彩
-      bgc: ""
+      // 图片主色彩这个由python计算之后返回
+      mainColor: [17, 17, 17]
     };
   },
   computed: {
     ...mapGetters(["bottom"]),
+    ...mapState(["personalized"]),
 
     // 按钮的top值
     buttonTop() {
       let top = 300 + this.scrollY;
-
       if (top <= 50) top = 50;
-
       if (top > 300) top = 300;
-
       return {
         top: top + "px"
       };
+    },
+
+    // 主要背景颜色
+    mainBGC() {
+      return `${this.mainColor[0]}, ${this.mainColor[1]}, ${this.mainColor[2]}`;
     },
 
     // 标题部分的背景透明度
     titleBGC() {
       let y = Math.abs(this.scrollY);
 
-      let alpha = y >= 250 ? 1 : 0;
+      let alpha = y >= 275 ? 1 : 0;
 
       return {
-        background: `linear-gradient(180deg, rgba(151, 117, 34, ${alpha}) 0%, rgba(17, 17, 17, ${alpha}) 100%)`
+        background: `linear-gradient(180deg, rgba(${
+          this.mainBGC
+        }, ${alpha}) 0%, rgba(17, 17, 17, ${alpha}) 100%)`
       };
     },
     // 图片介绍部分的渐变色背景
     introBlockBGC() {
       let y = Math.abs(this.scrollY);
-      let buttonHeight = 50;
-
       // 可以滚动的区块范围
-      let pos1 = ((350 - 1.5 * buttonHeight - y) / 350) * 100;
-
-      let pos2 = ((350 - y) / 350) * 100;
-      if (pos1 < (50 / 350) * 100) pos1 = (50 / 350) * 100;
-      if (pos2 < pos1) pos2 = pos1;
+      let pos = ((350 - y) / 350) * 100;
 
       return {
-        background: `linear-gradient(180deg, rgba(151, 117, 34, 1) 0%, rgba(74, 62, 24, 1) ${pos1}%, rgba(17, 17, 17, 1) ${pos2}%)`
+        background: `linear-gradient(180deg, rgba(${
+          this.mainBGC
+        }, 1) 0%, rgba(17, 17, 17, 1) ${pos}%)`
       };
     },
     // 图片透明度以及大小设置
-    alpha() {
+    imgAlpha() {
       let y = Math.abs(this.scrollY);
       let alpha = y > 300 ? 0 : 1 - y / 300;
       return {
         opacity: alpha,
         transform: `scale(${alpha * 1})`
       };
+    },
+    // 顶部标题透明度设置
+    titleAlpha() {
+      let y = Math.abs(this.scrollY);
+
+      let alpha = y >= 275 ? 1 : y / 275;
+
+      return {
+        opacity: alpha
+      };
     }
   },
 
-  created() {},
+  created() {
+    this.getListInfo();
+  },
+
+  watch: {
+    // 监听url 变化
+    picUrl() {
+      this.calcMainColor();
+    }
+  },
 
   mounted() {
     // 第一步骤请求 歌单中的信心得到歌单里面歌曲信息
@@ -112,6 +133,32 @@ export default {
   methods: {
     scroll({ y }) {
       this.scrollY = y;
+    },
+    getListInfo() {
+      let id = this.$route.params.id;
+      this.id = id;
+
+      // 直接从 vuex 获取部分信息
+      let playlist = this.personalized.filter(item => item.id == id);
+
+      // 没有数据就返回 主页
+      if (playlist.length > 0) {
+        this.name = playlist[0].name;
+        this.picUrl = playlist[0].picUrl;
+      } else {
+        this.$router.push({ path: "/home" });
+      }
+    },
+    calcMainColor() {
+      // 计算主要颜色
+
+      axios
+        .post("/py/calc_color", { picUrl: this.picUrl })
+        .then(res => {
+          this.mainColor = res.data.color;
+          console.log(res.data.color);
+        })
+        .catch(err => {});
     }
   }
 };

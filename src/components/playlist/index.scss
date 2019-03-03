@@ -1,4 +1,4 @@
-$--background-color: purple;
+$--background-color: #111;
 
 .some-playlist {
   position: fixed;
@@ -36,6 +36,10 @@ $--background-color: purple;
     .title-content {
       font-size: 18px;
       position: absolute;
+      max-width: 200px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      max-height: 60px;
       left: 50%;
       transform: translateX(-50%);
     }
@@ -58,13 +62,14 @@ $--background-color: purple;
         width: 170px;
         height: 170px;
         border-radius: 4px;
+        box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1);
       }
 
       >p {
         font-size: 16px;
         padding-top: 8px;
         max-height: 55px;
-        max-width: 300px;
+        max-width: 250px;
         text-align: center;
         word-break: break-all;
         text-overflow: ellipsis;

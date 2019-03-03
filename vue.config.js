@@ -20,12 +20,15 @@ module.exports = {
     devServer: {
         port: 8048,
         proxy: {
-            "/": {
-                target: 'http://localhost:4000'
-            },
             "/py": {
-                target: 'http://localhost:5555'
-            }
+                target: 'http://localhost:5000',
+                pathRewrite: { '^/py': '' },
+            },
+            "/node": {
+                target: 'http://localhost:4000',
+                pathRewrite: { '^/node': '' },
+            },
+
         }
     },
 };
