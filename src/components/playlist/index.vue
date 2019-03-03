@@ -22,7 +22,7 @@
       <div class="play-button" :style="buttonTop">PLAY</div>
       <scroll class="song-list" @scroll="scroll" :listenScroll="true">
         <div class="scroll-block">
-          <div class="item" v-for="n in 100" :key="n">scroll list</div>
+          <song v-for="item in songs" :key="item.id" :info="item"></song>
         </div>
       </scroll>
     </div>
@@ -31,11 +31,13 @@
 <script>
 import { mapGetters, mapState } from "vuex";
 import Scroll from "base/scroll";
+import Song from "../song";
 import axios from "axios";
 export default {
   name: "playlist",
   components: {
-    Scroll
+    Scroll,
+    Song
   },
   data() {
     return {
@@ -46,7 +48,8 @@ export default {
       // 歌曲描述
       disc: "",
       // 图片主色彩这个由python计算之后返回
-      mainColor: [17, 17, 17]
+      mainColor: [17, 17, 17],
+      songs: []
     };
   },
   computed: {
@@ -95,10 +98,11 @@ export default {
     // 图片透明度以及大小设置
     imgAlpha() {
       let y = Math.abs(this.scrollY);
-      let alpha = y > 300 ? 0 : 1 - y / 300;
+      let scale = y >= 275 ? 0 : 1 - y / 275;
+      let alpha = y >= 275 ? 0 : 1 - y / 275;
       return {
         opacity: alpha,
-        transform: `scale(${alpha * 1})`
+        transform: `scale(${scale})`
       };
     },
     // 顶部标题透明度设置
@@ -115,6 +119,7 @@ export default {
 
   created() {
     this.getListInfo();
+    this.getSongs();
   },
 
   watch: {
@@ -149,6 +154,25 @@ export default {
         this.$router.push({ path: "/home" });
       }
     },
+    getSongs() {
+      // 获取歌曲
+      axios
+        .get(`/node/playlist/detail?id=${this.id}`)
+        .then(res => {
+          let songs = res.data.playlist.tracks;
+          this.songs = songs.map(item => {
+            return {
+              name: item.name,
+              picUrl: item.al && item.al.picUrl,
+              id: item.id,
+              author: item.ar && item.ar && item.ar[0].name
+            };
+          });
+        })
+        .catch(err => {
+          console.log("err : ", err);
+        });
+    },
     calcMainColor() {
       // 计算主要颜色
 
@@ -156,7 +180,6 @@ export default {
         .post("/py/calc_color", { picUrl: this.picUrl })
         .then(res => {
           this.mainColor = res.data.color;
-          console.log(res.data.color);
         })
         .catch(err => {});
     }

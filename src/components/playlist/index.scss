@@ -95,16 +95,15 @@ $--background-color: #111;
 
   .song-list {
     background-color: #111;
-    color: green;
     position: absolute;
     top: 350px;
     width: 100%;
     bottom: 0;
 
-    .item {
-      background-color: #111;
+    .scroll-block {
+      padding-top: 10px;
+      padding-bottom: 10px;
     }
-
   }
 }
 

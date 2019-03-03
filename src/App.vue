@@ -23,6 +23,7 @@ export default {
 
 <style lang="scss">
 @import "theme/reset.scss";
+@import "theme/util.scss";
 html,
 body,
 #app {
@@ -40,6 +41,7 @@ body,
     left: 0;
     right: 0;
     bottom: 60px;
+    z-index: 100;
   }
 }
 </style>
