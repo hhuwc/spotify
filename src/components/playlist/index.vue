@@ -100,9 +100,20 @@ export default {
       let y = Math.abs(this.scrollY);
       let scale = y >= 275 ? 0 : 1 - y / 275;
       let alpha = y >= 275 ? 0 : 1 - y / 275;
+
+      // 高斯模糊效果
+      let blur = y >= 275 ? 5 : (y / 275) * 5;
+
+      const prefix = ["-webkit-", "-moz-", "-ms-", ""];
+      const filter = {};
+      prefix.forEach(val => {
+        filter[`${val}filter`] = `blur(${blur}px)`;
+      });
+
       return {
         opacity: alpha,
-        transform: `scale(${scale})`
+        transform: `scale(${scale})`,
+        ...filter
       };
     },
     // 顶部标题透明度设置

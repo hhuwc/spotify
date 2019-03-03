@@ -27,6 +27,13 @@ export default {
 
 <style lang="scss">
 .recent-play {
+  padding-top: 50px;
+  background: linear-gradient(
+    160deg,
+    rgb(69, 145, 194) 0%,
+    rgb(17, 17, 17) 60%
+  );
+
   > h1 {
     font-size: 20px;
     text-align: center;

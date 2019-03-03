@@ -1,12 +1,11 @@
 <template>
   <div class="home-page" :style="bottom">
-    <div class="top-setting">
-      <router-link tag="div" class="tab-item" to="/setting">
-        <i class="spfont sp-setting"></i>
-      </router-link>
-    </div>
+    <router-link tag="span" class="tab-item" :style="settingStyle" to="/setting">
+      <i class="spfont sp-setting"></i>
+    </router-link>
     <loading v-if="isLoading" class="loading-rec"></loading>
-    <scroll class="scroll-wrapper" v-else>
+
+    <scroll class="scroll-wrapper" @scroll="scroll" :listenScroll="true" v-else>
       <div class="scroll-block">
         <recent-play></recent-play>
         <recommend-list title="专为你打造" :musics="personalized"></recommend-list>
@@ -23,11 +22,17 @@ import Scroll from "base/scroll";
 import Loading from "base/loading";
 
 export default {
+  name: "home-page",
   components: {
     RecentPlay,
     RecommendList,
     Scroll,
     Loading
+  },
+  data() {
+    return {
+      scrollY: 0
+    };
   },
   computed: {
     ...mapGetters(["bottom"]),
@@ -35,14 +40,38 @@ export default {
 
     isLoading() {
       return this.personalized.length === 0;
+    },
+    settingStyle() {
+      let y = Math.abs(this.scrollY);
+      let scale = y >= 50 ? 0 : 1 - y / 50;
+      let alpha = y >= 50 ? 0 : 1 - y / 50;
+
+      // 高斯模糊效果
+      let blur = y >= 50 ? 5 : (y / 50) * 5;
+
+      const prefix = ["-webkit-", "-moz-", "-ms-", ""];
+      const filter = {};
+      prefix.forEach(val => {
+        filter[`${val}filter`] = `blur(${blur}px)`;
+      });
+
+      return {
+        opacity: alpha,
+        transform: `scale(${scale})`,
+        ...filter
+      };
     }
   },
 
   mounted() {
     this.getPersonalized();
   },
+
   methods: {
-    ...mapActions(["getPersonalized"])
+    ...mapActions(["getPersonalized"]),
+    scroll({ y }) {
+      this.scrollY = y;
+    }
   }
 };
 </script>
@@ -58,14 +87,11 @@ $--base-color: #fcfafa;
   width: 100%;
   overflow: hidden;
 
-  .top-setting {
-    padding-top: 27px;
-    padding-bottom: 10px;
-    padding-right: 12px;
-    line-height: 1;
-    display: flex;
-    flex-flow: row-reverse;
-
+  .tab-item {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 10;
     i.spfont {
       font-size: 25px !important;
     }
@@ -80,7 +106,7 @@ $--base-color: #fcfafa;
   }
   // 最近播放 以及推荐歌曲部分的样式
   .scroll-wrapper {
-    top: 60px;
+    top: 0;
     position: absolute;
     bottom: 0;
     width: 100%;
