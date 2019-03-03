@@ -1,7 +1,7 @@
 <template>
   <div class="home-page" :style="bottom">
     <div class="top-setting">
-      <router-link tag="div" class="tab-item" to="/home/setting">
+      <router-link tag="div" class="tab-item" to="/setting">
         <i class="spfont sp-setting"></i>
       </router-link>
     </div>
