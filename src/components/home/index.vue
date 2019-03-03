@@ -80,12 +80,12 @@ $--background-color: #111111;
 $--base-color: #fcfafa;
 .home-page {
   color: $--base-color;
-  background-color: $--background-color;
   position: absolute;
   top: 0;
   bottom: 60px;
   width: 100%;
   overflow: hidden;
+  background: linear-gradient(160deg, #4591c2 0%, #111111 25%);
 
   .tab-item {
     position: fixed;
@@ -112,7 +112,7 @@ $--base-color: #fcfafa;
     width: 100%;
     .scroll-block {
       color: $--base-color;
-      background-color: $--background-color;
+      padding-top: 50px;
       width: 100%;
       text-align: center;
     }

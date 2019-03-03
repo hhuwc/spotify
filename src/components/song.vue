@@ -76,9 +76,14 @@ $--background-color: #404040;
     padding-left: 15px;
     line-height: 25px;
     flex-grow: 1;
+    width: 100px;
     .music-name {
       color: #fff;
       font-size: 14px;
+      max-width: 100%;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
     }
     .music-author {
       color: rgb(207, 207, 207);

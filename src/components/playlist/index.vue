@@ -171,14 +171,16 @@ export default {
         .get(`/node/playlist/detail?id=${this.id}`)
         .then(res => {
           let songs = res.data.playlist.tracks;
-          this.songs = songs.map(item => {
-            return {
-              name: item.name,
-              picUrl: item.al && item.al.picUrl,
-              id: item.id,
-              author: item.ar && item.ar && item.ar[0].name
-            };
-          });
+          this.songs = songs
+            .map((item, index) => {
+              return {
+                name: item.name,
+                picUrl: item.al && item.al.picUrl,
+                id: item.id,
+                author: item.ar && item.ar && item.ar[0].name
+              };
+            })
+            .splice(0, 25);
         })
         .catch(err => {
           console.log("err : ", err);
