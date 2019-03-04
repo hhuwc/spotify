@@ -3,20 +3,19 @@
     <keep-alive>
       <router-view></router-view>
     </keep-alive>
-    <h1 class="mini-player" v-if="showMiniBar">mini播放器</h1>
+    <player></player>
     <bottom-bar/>
   </div>
 </template>
 
 <script>
 import BottomBar from "components/bottom-nav";
-import { mapState } from "vuex";
+import Player from "components/player";
+
 export default {
   components: {
-    BottomBar
-  },
-  computed: {
-    ...mapState(["showMiniBar"])
+    BottomBar,
+    Player
   }
 };
 </script>
@@ -32,16 +31,5 @@ body,
 }
 #app {
   position: relative;
-
-  .mini-player {
-    color: #fff;
-    background-color: red;
-    height: 50px;
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 60px;
-    z-index: 100;
-  }
 }
 </style>
