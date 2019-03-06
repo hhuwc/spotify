@@ -3,9 +3,9 @@
     <router-link tag="span" class="tab-item" :style="settingStyle" to="/setting">
       <i class="spfont sp-setting"></i>
     </router-link>
-    <loading v-if="isLoading" class="loading-rec"></loading>
+    <loading v-if="isLoading" class="loading-rec" :style="bottom"></loading>
 
-    <scroll class="scroll-wrapper" @scroll="scroll" :listenScroll="true" v-else>
+    <scroll class="scroll-wrapper" @scroll="scroll" :listenScroll="true">
       <div class="scroll-block">
         <recent-play></recent-play>
         <recommend-list title="专为你打造" :musics="personalized"></recommend-list>
@@ -31,16 +31,24 @@ export default {
   },
   data() {
     return {
-      scrollY: 0
+      scrollY: 0,
+      isLoading: true
     };
+  },
+  watch: {
+    personalized(val, oldVal) {
+      //三秒延时加载
+      if (val.length !== 0) {
+        setTimeout(() => {
+          this.isLoading = false;
+        }, 3000);
+      }
+    }
   },
   computed: {
     ...mapGetters(["bottom"]),
     ...mapState(["personalized"]),
 
-    isLoading() {
-      return this.personalized.length === 0;
-    },
     settingStyle() {
       let y = Math.abs(this.scrollY);
       let scale = y >= 50 ? 0 : 1 - y / 50;
@@ -99,10 +107,12 @@ $--base-color: #fcfafa;
 
   // 加载中
   .loading-rec {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 999;
   }
   // 最近播放 以及推荐歌曲部分的样式
   .scroll-wrapper {
