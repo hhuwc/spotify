@@ -1,6 +1,8 @@
 <template>
   <div class="loading-wrapper">
-    <i class="spfont sp-loading" :style="style"></i>
+    <span>
+      <i class="spfont sp-loading" :style="style"></i>
+    </span>
   </div>
 </template>
 
@@ -38,11 +40,23 @@ $--background-color: #111111;
 .loading-wrapper {
   color: $--main-green;
   background-color: $--background-color;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  > .sp-loading {
-    animation: spin 2s infinite linear;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
+  > span {
+    position: absolute;
+    top: 50vh;
+    left: 50vw;
+    transform: translate(-50%, -50%);
+
+    > .sp-loading {
+      display: inline-block;
+      animation: spin 2s infinite linear;
+    }
   }
 }
 </style>
