@@ -1,22 +1,26 @@
 <template>
   <div class="mini-song">
-    <div class="mini-img">
+    <div class="mini-img" @click="click">
       <img v-lazy="info.picUrl" alt>
       <i class="spfont sp-play"></i>
     </div>
 
-    <div class="music-name-author">
+    <div class="music-name-author" @click="click">
       <p class="music-name">{{this.info.name}}</p>
       <p class="music-author">{{this.info.author}}</p>
     </div>
 
     <div class="action">
-      <i class="spfont sp-love"></i>&nbsp;&nbsp;
+      <i class="spfont sp-loved" v-if="isLoved" @click="dislike(info.id)"></i>
+      <i class="spfont sp-love" v-else @click="like(info)"></i>
+      &nbsp;&nbsp;
       <i class="spfont sp-more"></i>
     </div>
   </div>
 </template>
 <script>
+import * as types from "../store/mutationTypes.js";
+import { mapActions, mapGetters, mapMutations } from "vuex";
 export default {
   name: "sp-song",
   props: {
@@ -28,6 +32,23 @@ export default {
         name: "",
         picUrl: ""
       })
+    }
+  },
+
+  computed: {
+    ...mapGetters(["favoriteSongIds"]),
+    isLoved() {
+      return this.favoriteSongIds.includes(this.info.id);
+    }
+  },
+  methods: {
+    ...mapMutations({
+      like: types.LOVE_SONG,
+      dislike: types.DiSLIKE_SONG
+    }),
+    ...mapActions(["playThisSong"]),
+    click() {
+      this.playThisSong(this.info);
     }
   }
 };
@@ -95,6 +116,9 @@ $--background-color: #404040;
     height: 70px;
     width: 70px;
     line-height: 70px;
+    .sp-loved {
+      color: #1db954;
+    }
 
     .spfont {
       font-size: 21px;
