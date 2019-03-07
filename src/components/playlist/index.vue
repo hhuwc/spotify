@@ -29,10 +29,11 @@
   </transition>
 </template>
 <script>
-import { mapGetters, mapState } from "vuex";
+import { mapGetters, mapState, mapMutations, mapActions } from "vuex";
 import Scroll from "base/scroll";
 import Song from "../song";
-import axios from "axios";
+import { get } from "common/http";
+import * as types from "../../store/mutationTypes.js";
 export default {
   name: "playlist",
   components: {
@@ -137,16 +138,21 @@ export default {
     // 监听url 变化
     picUrl() {
       this.calcMainColor();
+    },
+    songs(val) {
+      if (val.length !== 0) {
+      }
     }
   },
 
   mounted() {
     // 第一步骤请求 歌单中的信心得到歌单里面歌曲信息
     // 第二部替换图片  并计算背景颜色
-
+    this.setLoading();
     console.log("组件加载完成");
   },
   methods: {
+    ...mapActions(["setLoading"]),
     scroll({ y }) {
       this.scrollY = y;
     },
@@ -165,36 +171,35 @@ export default {
         this.$router.push({ path: "/home" });
       }
     },
-    getSongs() {
+    async getSongs() {
       // 获取歌曲
-      axios
-        .get(`/node/playlist/detail?id=${this.id}`)
-        .then(res => {
-          let songs = res.data.playlist.tracks;
-          this.songs = songs
-            .map((item, index) => {
-              return {
-                name: item.name,
-                picUrl: item.al && item.al.picUrl,
-                id: item.id,
-                author: item.ar && item.ar && item.ar[0].name
-              };
-            })
-            .splice(0, 25);
-        })
-        .catch(err => {
-          console.log("err : ", err);
-        });
-    },
-    calcMainColor() {
-      // 计算主要颜色
 
-      axios
-        .post("/py/calc_color", { picUrl: this.picUrl })
-        .then(res => {
-          this.mainColor = res.data.color;
-        })
-        .catch(err => {});
+      try {
+        let resData = await get("/node/playlist/detail", { id: this.id });
+        let songs = resData.playlist.tracks;
+        this.songs = songs
+          .map((item, index) => {
+            return {
+              name: item.name,
+              picUrl: item.al && item.al.picUrl,
+              id: item.id,
+              author: item.ar && item.ar && item.ar[0].name,
+              duration: item.dt
+            };
+          })
+          .splice(0, 25);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async calcMainColor() {
+      // 计算主要颜色
+      try {
+        let resData = await get("/py/calc_color", { picUrl: this.picUrl });
+        this.mainColor = resData.color;
+      } catch (error) {
+        console.log(error);
+      }
     }
   }
 };
