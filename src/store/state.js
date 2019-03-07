@@ -1,10 +1,4 @@
-
-// 播放模式
-const playMode = {
-  sequence: 0,
-  loop: 1,
-  random: 2
-};
+import { PLAYMODE } from "common/config";
 
 const state = {
   // 个性化推荐的歌曲
@@ -16,7 +10,23 @@ const state = {
   // 收藏的歌曲
   favoriteSong: [],
 
-  showMiniBar: false,
+  // 全屏播放
+  fullScreen: false,
+  // 是否播放
+  playing: true,
+
+  // 播放列表
+  playList: [],
+
+  // 当前播放的歌曲索引
+  currentIndex: -1,
+
+  // 歌曲url
+  mp3: "",
+
+  isLoading: true,
+
+  mode: PLAYMODE.random
 
 };
 
