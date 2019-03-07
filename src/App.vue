@@ -14,7 +14,7 @@
 import { mapGetters, mapState } from "vuex";
 import Loading from "base/loading";
 import BottomBar from "components/bottom-nav";
-import Player from "components/player";
+import Player from "components/player/player";
 
 export default {
   components: {
