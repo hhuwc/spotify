@@ -26,7 +26,7 @@ const state = {
 
   isLoading: true,
 
-  mode: PLAYMODE.random
+  mode: PLAYMODE.loop
 
 };
 

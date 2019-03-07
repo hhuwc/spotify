@@ -1,40 +1,43 @@
 <template>
   <div class="global-player" v-if="playList.length > 0">
     <transition name="player">
-      <div class="full-screen-player" v-if="fullScreen">
-        <div class="top-block">
-          <i class="spfont sp-down" @click="setFullScreen(false)"></i>
-          <i class="spfont sp-love" v-if="!isLoved" @click="like(currentSong)"></i>
-          <i class="spfont sp-loved" v-else @click="dislike(currentSong.id)"></i>
-          <i class="spfont sp-more"></i>
-        </div>
-
-        <!--唱片机部分 -->
-        <div class="turntable">
-          <div class="cd">
-            <div class="border"></div>
-            <div class="white"></div>
-            <div class="black"></div>
+      <div class="full-screen-player" v-if="fullScreen" :style="imgBgc">
+        <div class="frosted-glass-img-layer"></div>
+        <div class="frosted-glass-color-layer"></div>
+        <div class="content">
+          <div class="top-block">
+            <i class="spfont sp-down" @click="setFullScreen(false)"></i>
+            <i class="spfont sp-love" v-if="!isLoved" @click="like(currentSong)"></i>
+            <i class="spfont sp-loved" v-else @click="dislike(currentSong.id)"></i>
+            <i class="spfont sp-more"></i>
           </div>
-        </div>
 
-        <!-- 进度条控制 -->
-        <div class="controll-progress-bar" @click="setProgress" ref="progress">
-          <div class="progress-bar" :style="{width:`${this.progress}%`}"></div>
-        </div>
-        <!-- 控制区块 -->
-        <div class="controlls">
-          <i class="spfont sp-order"></i>
-          <i class="spfont sp-loop"></i>
-          <i class="spfont sp-random"></i>
-          <i class="spfont sp-previous" @click="prev"></i>
-          <i class="spfont sp-play-circle" v-if="!playing" @click="play"></i>
-          <i class="spfont sp-pause-circle" v-else @click="pause"></i>
-          <i class="spfont sp-next" @click="next"></i>
-          <i class="spfont sp-playlist"></i>
-        </div>
+          <!--唱片机部分 -->
+          <div class="turntable">
+            <div class="cd">
+              <div class="border"></div>
+              <div class="disk"></div>
+              <img class="album" :src="currentSong.picUrl">
+            </div>
+          </div>
 
-        <!-- <img :src="currentSong.picUrl" alt> -->
+          <!-- 进度条控制 -->
+          <div class="controll-progress-bar" @click="setProgress" ref="progress">
+            <div class="progress-bar" :style="{width:`${this.progress}%`}"></div>
+          </div>
+          <!-- 控制区块 -->
+          <div class="controlls">
+            <i class="spfont" :class="`sp-${this.modeIcon}`" @click="changeMode"></i>
+            
+            <i class="spfont sp-previous" @click="prev"></i>
+            <i class="spfont sp-play-circle" v-if="!playing" @click="play"></i>
+            <i class="spfont sp-pause-circle" v-else @click="pause"></i>
+            <i class="spfont sp-next" @click="next"></i>
+            <i class="spfont sp-playlist"></i>
+          </div>
+
+          <!-- <img :src="currentSong.picUrl" alt> -->
+        </div>
       </div>
     </transition>
 
@@ -112,7 +115,17 @@ export default {
 
     ...mapGetters(["currentSong", "favoriteSongIds"]),
 
-    modeIcon() {},
+    imgBgc() {
+      return {
+        backgroundImage: `url(${this.currentSong.picUrl})`
+      };
+    },
+
+    modeIcon() {
+      if (this.mode === PLAYMODE.loop) return "loop";
+      if (this.mode === PLAYMODE.order) return "order";
+      return "random";
+    },
 
     loop() {
       return this.mode === PLAYMODE.loop;
@@ -156,6 +169,10 @@ export default {
     next() {
       console.log("播放列表下一首");
       this.changeIndex(0);
+    },
+
+    changeMode() {
+      console.log("切换模式");
     },
     setProgress(e) {
       //

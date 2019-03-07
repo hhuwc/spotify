@@ -3,6 +3,21 @@ $-z-index-2: 110;
 $--mini-height: 55px;
 $--background-color: #111;
 
+@mixin absolute-center-middle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@mixin absolute-100 {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+
 .global-player {
   height: $--mini-height;
   position: absolute;
@@ -78,50 +93,77 @@ $--background-color: #111;
     right: 0;
     bottom: 0;
     background-color: $--background-color;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    overflow: hidden;
     color: #fff;
     z-index: 150;
+
+
+    >.frosted-glass-img-layer {
+      height: 100%;
+      width: 100%;
+      background: inherit;
+      filter: blur(20px);
+    }
+
+    >.frosted-glass-color-layer {
+      @include absolute-100();
+      background-color: rgba(69, 69, 69, 0.85);
+    }
+
+    >.content {
+      @include absolute-100();
+    }
+
+    @keyframes rotate {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
 
     .cd {
 
       display: inline-block;
       position: relative;
-      height: 200px;
-      width: 200px;
+      height: 250px;
+      width: 250px;
 
+      animation: rotate 5s infinite linear;
+
+
+
+      .album {
+        width: 60%;
+        height: 60%;
+        border-radius: 50%;
+        background-color: green;
+        @include absolute-center-middle();
+
+      }
 
       .border {
         width: 100%;
         height: 100%;
         border-radius: 50%;
-        background-color: goldenrod;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-      }
-
-      .black {
-        width: 60%;
-        height: 60%;
-        border-radius: 50%;
-        background-color: green;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+        @include absolute-center-middle();
+        background-color: rgba(59, 59, 59, 0.4);
       }
 
 
 
-      .white {
-        width: 95%;
-        height: 95%;
+      .disk {
+        width: 96%;
+        height: 96%;
         border-radius: 50%;
-        background-color: red;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+        @include absolute-center-middle();
+        background: rgb(0, 0, 0);
+        background: linear-gradient(45deg, rgba(0, 0, 0, 1) 0%, rgba(57, 56, 57, 1) 50%, rgba(0, 0, 0, 1) 100%);
       }
 
 
