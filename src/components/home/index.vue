@@ -1,12 +1,12 @@
 <template>
-  <div class="home-page" :style="bottom">
+  <div class="home-page" :style="[bottom,topBGCStyle]">
     <router-link tag="span" class="setting" :style="settingStyle" to="/setting">
       <i class="spfont sp-setting"></i>
     </router-link>
 
     <scroll class="scroll-wrapper" @scroll="scroll" :listenScroll="true">
       <div class="scroll-block">
-        <recent-play></recent-play>
+        <recent-play :recent-data="recent"></recent-play>
         <recommend-list title="专为你打造" :musics="personalized"></recommend-list>
       </div>
     </scroll>
@@ -16,10 +16,11 @@
 </template>
 <script>
 import RecentPlay from "./recent-play";
-import { mapGetters, mapState, mapActions } from "vuex";
+import { mapGetters, mapState, mapActions, mapMutations } from "vuex";
 import * as types from "../../store/mutationTypes.js";
 import RecommendList from "./recommend-list";
 import Scroll from "base/scroll";
+import { get } from "common/http";
 
 export default {
   name: "home-page",
@@ -30,18 +31,21 @@ export default {
   },
   data() {
     return {
-      scrollY: 0
+      scrollY: 0,
+      topBGC: [69, 141, 189],
+      topBGCEnd: 25
     };
   },
   watch: {
-    personalized(val, oldVal) {
-      if (val.length !== 0) {
+    recent(val, oldVal) {
+      if (val.length > 0) {
+        this.calcMainColor(val[0].picUrl);
       }
     }
   },
   computed: {
     ...mapGetters(["bottom"]),
-    ...mapState(["personalized"]),
+    ...mapState(["personalized", "recent"]),
 
     settingStyle() {
       let y = Math.abs(this.scrollY);
@@ -62,6 +66,13 @@ export default {
         transform: `scale(${scale})`,
         ...filter
       };
+    },
+    topBGCStyle() {
+      return {
+        background: `linear-gradient(160deg, rgb(${this.topBGC[0]},${
+          this.topBGC[1]
+        },${this.topBGC[2]}) 0%, #111111 ${this.topBGCEnd}%)`
+      };
     }
   },
 
@@ -74,6 +85,18 @@ export default {
     ...mapActions(["getPersonalized", "setLoading"]),
     scroll({ y }) {
       this.scrollY = y;
+      let offSetTop = Math.abs(y);
+
+      this.topBGCEnd = offSetTop >= 150 ? 0 : (1 - offSetTop / 150) * 25;
+    },
+    async calcMainColor(picUrl) {
+      // 计算主要颜色
+      try {
+        let resData = await get("/py/calc_color", { picUrl });
+        this.topBGC = resData.color;
+      } catch (error) {
+        console.log(error);
+      }
     }
   }
 };
@@ -88,7 +111,6 @@ $--base-color: #fcfafa;
   bottom: 60px;
   width: 100%;
   overflow: hidden;
-  background: linear-gradient(160deg, #4591c2 0%, #111111 25%);
 
   .setting {
     position: fixed;

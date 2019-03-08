@@ -66,6 +66,7 @@ export default {
         background-color: #111;
         margin-bottom: 5px;
         position: relative;
+        border-radius: 2px;
         .sp-spotify {
           position: absolute;
           left: 10px;
@@ -74,7 +75,8 @@ export default {
         img {
           height: 100%;
           width: 100%;
-          box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1);
+          border-radius: 2px;
+          box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
         }
       }
       .album-title {
