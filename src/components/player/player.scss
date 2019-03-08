@@ -117,15 +117,6 @@ $--background-color: #111;
       @include absolute-100();
     }
 
-    @keyframes rotate {
-      from {
-        transform: rotate(0deg);
-      }
-
-      to {
-        transform: rotate(360deg);
-      }
-    }
 
     .cd {
 
@@ -134,15 +125,11 @@ $--background-color: #111;
       height: 250px;
       width: 250px;
 
-      animation: rotate 5s infinite linear;
-
-
-
       .album {
         width: 60%;
         height: 60%;
         border-radius: 50%;
-        background-color: green;
+        background-color: rgba(130, 130, 130, 0.6);
         @include absolute-center-middle();
 
       }
@@ -152,7 +139,7 @@ $--background-color: #111;
         height: 100%;
         border-radius: 50%;
         @include absolute-center-middle();
-        background-color: rgba(59, 59, 59, 0.4);
+        background-color: rgba(130, 130, 130, 0.6);
       }
 
 

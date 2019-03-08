@@ -7,14 +7,21 @@
         <div class="content">
           <div class="top-block">
             <i class="spfont sp-down" @click="setFullScreen(false)"></i>
-            <i class="spfont sp-love" v-if="!isLoved" @click="like(currentSong)"></i>
-            <i class="spfont sp-loved" v-else @click="dislike(currentSong.id)"></i>
+            {{this.currentSong.name}}
+            {{this.currentSong.author}}
+            <i
+              class="spfont sp-loved"
+              v-if="isLoved"
+              @click="dislike(currentSong.id)"
+            ></i>
+            <i class="spfont sp-love" v-else @click="like(currentSong)"></i>
+            
             <i class="spfont sp-more"></i>
           </div>
 
           <!--唱片机部分 -->
           <div class="turntable">
-            <div class="cd">
+            <div class="cd" :style="rotateStyle">
               <div class="border"></div>
               <div class="disk"></div>
               <img class="album" :src="currentSong.picUrl">
@@ -29,14 +36,17 @@
           <div class="controlls">
             <i class="spfont" :class="`sp-${this.modeIcon}`" @click="changeMode"></i>
             
-            <i class="spfont sp-previous" @click="prev"></i>
-            <i class="spfont sp-play-circle" v-if="!playing" @click="play"></i>
-            <i class="spfont sp-pause-circle" v-else @click="pause"></i>
-            <i class="spfont sp-next" @click="next"></i>
+            <i class="spfont sp-previous" @click="jump(-1)"></i>
+            <i class="spfont sp-pause-circle" v-if="playing" @click="setPlay(false)"></i>
+            <i class="spfont sp-play-circle" v-else @click="setPlay(true)"></i>
+            
+            <i class="spfont sp-next" @click="jump(1)"></i>
             <i class="spfont sp-playlist"></i>
           </div>
 
           <!-- <img :src="currentSong.picUrl" alt> -->
+          <span>{{this.totalTime}}</span>
+          <span>{{this.currentTimeMMSS}}</span>
         </div>
       </div>
     </transition>
@@ -50,8 +60,8 @@
         {{this.currentSong.author}}
       </span>
       <span class="action">
-        <i class="spfont sp-stop" v-if="playing" @click="pause"></i>
-        <i class="spfont sp-play" v-else @click="play"></i>
+        <i class="spfont sp-pause" v-if="playing" @click="setPlay(false)"></i>
+        <i class="spfont sp-play" v-else @click="setPlay(true)"></i>
       </span>
     </div>
     <audio
@@ -77,30 +87,55 @@ export default {
   data() {
     return {
       canplay: false,
-      currentTime: 0
+      currentTime: 0,
+      timer: null, // 切换歌曲定时器
+      rotate: 0,
+      rotateTimer: null //旋转动画定时器
     };
   },
 
   mounted() {},
 
-  beforeDestroy() {},
+  beforeDestroy() {
+    clearInterval(this.rotateTimer);
+    clearTimeout(this.timer);
+  },
   watch: {
     playThisSong(val, oldVal) {
-      if (val && !oldVal) this.$refs.music.play();
+      if (val && !oldVal) {
+        this.$refs.music.play();
+        clearInterval(this.rotateTimer);
+        this.rotateTimer = setInterval(() => {
+          this.rotate >= 359 ? (this.rotate = 0) : (this.rotate += 1);
+        }, 1000 / 60);
+      }
 
-      if (!val && oldVal) this.$refs.music.pause();
+      if (!val && oldVal) {
+        this.$refs.music.pause();
+        clearInterval(this.rotateTimer);
+      }
     },
 
     currentIndex() {
       // 索引变化自动获取歌曲啊,播放就是控制索引
-      this.setPlay(false);
-
-      this.setMP3(this.currentSong.id);
 
       // 1秒之后 播放
-      setTimeout(() => {
-        this.setPlay(true);
-      }, 1000);
+      clearInterval(this.rotateTimer);
+
+      this.rotate = 0;
+
+      clearTimeout(this.timer);
+      this.timer = setTimeout(() => {
+        this.setPlay(false);
+        this.setMP3(this.currentSong.id);
+
+        // 这里将歌曲添加最近播放列表
+        this.addRecentPlay(this.currentSong);
+
+        setTimeout(() => {
+          this.setPlay(true);
+        }, 500);
+      }, 500);
     }
   },
   computed: {
@@ -114,6 +149,14 @@ export default {
     ]),
 
     ...mapGetters(["currentSong", "favoriteSongIds"]),
+
+    totalTime() {
+      return this.calcDuration(this.currentSong.duration);
+    },
+
+    currentTimeMMSS() {
+      return this.calcDuration(this.currentTime * 1000);
+    },
 
     imgBgc() {
       return {
@@ -139,6 +182,11 @@ export default {
     },
     playThisSong() {
       return this.playing && this.canplay;
+    },
+    rotateStyle() {
+      return {
+        transform: `rotate(${this.rotate}deg)`
+      };
     }
   },
   methods: {
@@ -147,32 +195,42 @@ export default {
       setFullScreen: types.SET_FULLSCREEN,
       like: types.LOVE_SONG,
       dislike: types.DiSLIKE_SONG,
-      changeIndex: types.SET_CURRENTINDEX
+      changeIndex: types.SET_CURRENTINDEX,
+      setMode: types.SET_PLAY_MODE,
+      addRecentPlay: types.ADD_RECENT_PLAY
     }),
     ...mapActions(["setMP3"]),
-    play() {
-      this.setPlay(true);
-    },
-    pause() {
-      this.setPlay(false);
-    },
+
     timeupdate(e) {
-      this.currentTime = e.target.currentTime;
+      this.currentTime = Math.ceil(e.target.currentTime);
     },
     canplaythrough(e) {
       this.canplay = true;
     },
 
-    prev() {
-      console.log("播放列表前一首");
+    calcDuration(totalTime) {
+      let seconds = totalTime / 1000;
+      let minute = Math.floor(seconds / 60);
+      seconds = Math.floor(seconds - minute * 60);
+      if (minute < 10) minute = "0" + minute;
+      if (seconds < 10) seconds = "0" + seconds;
+      return `${minute}:${seconds}`;
     },
-    next() {
-      console.log("播放列表下一首");
-      this.changeIndex(0);
+    // 上一首 下一首
+    jump(step) {
+      let currentIndex = this.currentIndex;
+      const currentLength = this.playList.length;
+
+      currentIndex = currentIndex + step;
+      if (currentIndex < 0) currentIndex = currentLength - 1;
+      if (currentIndex >= currentLength) currentIndex = 0;
+
+      this.changeIndex(currentIndex);
     },
 
     changeMode() {
-      console.log("切换模式");
+      // 模式的数字是  0 , 1 ,2
+      this.mode < 2 ? this.setMode(this.mode + 1) : this.setMode(0);
     },
     setProgress(e) {
       //
@@ -187,9 +245,10 @@ export default {
     error(e) {
       const { error } = this.$refs.music;
       if (!error) return;
-      const { code } = error;
-      //  4 指的是 地址无效
-      if (code === 4 && this.mp3) {
+
+      console.log(error);
+      // 每个错误都有不同的状态码 避免出现地址过期等情况
+      if (error && this.mp3) {
         this.canplay = false;
         this.setMP3(this.currentSong.id);
       }
@@ -204,15 +263,24 @@ export default {
       const currentLength = this.playList.length;
 
       // 列表循环模式
-      if (this.mode === PLAYMODE.order) {
+      if (this.mode === PLAYMODE.order && currentLength !== 1) {
         if (currentIndex === currentLength - 1) currentIndex = 0;
         else currentIndex++;
       }
 
       // 列表随即模式
-      if (this.mode === PLAYMODE.random) {
-        let temp = Math.ceil(Math.random() * (currentLength - 1));
-        if (temp !== currentIndex) currentIndex = temp;
+      if (this.mode === PLAYMODE.random && currentLength !== 1) {
+        // 随机要是等于现在的怎么办？如果列表中只有一首歌 怎么随机
+
+        let temp;
+        while (true) {
+          temp = Math.ceil(Math.random() * (currentLength - 1));
+
+          if (temp !== currentIndex) {
+            currentIndex = temp;
+            break;
+          }
+        }
       }
 
       this.changeIndex(currentIndex);
