@@ -32,7 +32,7 @@ export async function playThisSong({ commit, state, getters }, music) {
     commit(types.SET_CURRENTINDEX, index);
   }
   // 设置全屏
-  // commit(types.SET_FULLSCREEN, true);
+  commit(types.SET_FULLSCREEN, true);
 
 }
 // 看看是否长期有效
@@ -47,9 +47,8 @@ async function getMP3URL(musicId) {
     url = resData.data[0].url;
   } catch (error) {
     console.error(error);
-  } finally {
-    return url;
   }
+  return url;
 }
 
 
