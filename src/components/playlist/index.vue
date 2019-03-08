@@ -72,7 +72,7 @@ export default {
       return `${this.mainColor[0]}, ${this.mainColor[1]}, ${this.mainColor[2]}`;
     },
 
-    // 标题部分的背景透明度
+    // 标题部分 按钮到达最上部时的状态
     titleBGC() {
       let y = Math.abs(this.scrollY);
 
