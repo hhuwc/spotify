@@ -25,6 +25,10 @@ export const LOVE_SONG = "LOVE_SONG";
 
 export const DiSLIKE_SONG = "DiSLIKE_SONG";
 
-export const SET_MP3_MAP = "SET_MP3_MAP";
+
+export const SET_PLAY_MODE = "SET_PLAY_MODE";
+
+
+export const ADD_RECENT_PLAY = "ADD_RECENT_PLAY";
 
 

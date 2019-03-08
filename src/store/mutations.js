@@ -39,8 +39,24 @@ const mutations = {
   // 取消喜欢歌曲
   [types.DiSLIKE_SONG](state, id) {
     let index = state.favoriteSong.findIndex(el => el.id == id);
-    state.favoriteSong.splice(index, 1);
+    if (index > -1) state.favoriteSong.splice(index, 1);
   },
+
+  [types.SET_PLAY_MODE](state, mode) {
+    state.mode = mode;
+  },
+
+  // 添加最近播放的逻辑
+  [types.ADD_RECENT_PLAY](state, music) {
+    let index = state.recent.findIndex(el => el.id == music.id);
+    if (index == -1) state.recent.splice(0, 0, music);
+    else {
+      state.recent.splice(index, 1);
+      state.recent.splice(0, 0, music);
+    }
+
+  }
+
 
 };
 

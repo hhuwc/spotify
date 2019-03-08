@@ -4,7 +4,7 @@ const state = {
   // 个性化推荐的歌曲
   personalized: [],
   // 最近播放的歌曲
-  recentPlay: [],
+  recent: [],
   // 收藏的歌单
   favoriteList: [],
   // 收藏的歌曲
@@ -26,7 +26,7 @@ const state = {
 
   isLoading: true,
 
-  mode: PLAYMODE.loop
+  mode: PLAYMODE.order
 
 };
 
