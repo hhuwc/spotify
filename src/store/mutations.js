@@ -55,8 +55,12 @@ const mutations = {
       state.recent.splice(0, 0, music);
     }
 
-  }
+  },
 
+  [types.ADD_THIS_LIST](state, songs) {
+    const { length } = state.playList;
+    state.playList.splice(0, length, ...songs);
+  }
 
 };
 

@@ -19,7 +19,7 @@
           <p>{{this.name}}</p>
         </div>
       </div>
-      <div class="play-button" :style="buttonTop">PLAY</div>
+      <div class="play-button" :style="buttonTop" @click="playThisList(songs)">PLAY</div>
       <scroll class="song-list" @scroll="scroll" :listenScroll="true">
         <div class="scroll-block">
           <song v-for="item in songs" :key="item.id" :info="item"></song>
@@ -152,10 +152,12 @@ export default {
     console.log("组件加载完成");
   },
   methods: {
-    ...mapActions(["setLoading"]),
+    ...mapActions(["setLoading", "playThisList"]),
+
     scroll({ y }) {
       this.scrollY = y;
     },
+
     getListInfo() {
       let id = this.$route.params.id;
       this.id = id;
@@ -177,17 +179,21 @@ export default {
       try {
         let resData = await get("/node/playlist/detail", { id: this.id });
         let songs = resData.playlist.tracks;
-        this.songs = songs
-          .map((item, index) => {
-            return {
-              name: item.name,
-              picUrl: item.al && item.al.picUrl,
-              id: item.id,
-              author: item.ar && item.ar && item.ar[0].name,
-              duration: item.dt
-            };
-          })
-          .splice(0, 25);
+        this.songs.splice(
+          0,
+          0,
+          ...songs
+            .map((item, index) => {
+              return {
+                name: item.name,
+                picUrl: item.al && item.al.picUrl,
+                id: item.id,
+                author: item.ar && item.ar && item.ar[0].name,
+                duration: item.dt
+              };
+            })
+            .splice(0, 25)
+        );
       } catch (error) {
         console.log(error);
       }

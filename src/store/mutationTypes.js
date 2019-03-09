@@ -9,7 +9,11 @@ export const SET_FULLSCREEN = "SET_FULLSCREEN";
 
 export const SET_CURRENTINDEX = "SET_CURRENTINDEX";
 
+// 播放点击的歌曲
 export const ADD_MUSIC = "ADD_MUSIC";
+
+// 播放整个列表
+export const ADD_THIS_LIST = "ADD_THIS_LIST";
 
 // 获取mp3 url url 有效期为 25分钟为了 便捷每次播放都重新获取
 export const SET_MP3_URL = "SET_MP3_URL";

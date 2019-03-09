@@ -265,7 +265,7 @@ export default {
 
       console.log(error);
       // 每个错误都有不同的状态码 避免出现地址过期等情况
-      if (error && this.mp3) {
+      if (error) {
         this.canplay = false;
         this.setMP3(this.currentSong.id);
       }

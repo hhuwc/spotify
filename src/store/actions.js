@@ -75,3 +75,29 @@ export async function setLoading({ commit }) {
   }, 2500);
 }
 
+
+export function playThisList({ commit, state }, songs) {
+  let flag = true;
+
+  // 如果播放的就是当前列表就不需变化了
+  if (state.playList.length === songs.length) {
+    state.playList.forEach((el, index) => {
+      if (songs[index]) el.id === songs[index].id ? 0 : flag = false;
+    });
+  } else {
+    flag = false;
+  }
+
+  if (flag) return;
+
+  commit(types.SET_CURRENTINDEX, -1);
+  commit(types.SET_MP3_URL, null);
+
+  setTimeout(() => {
+    commit(types.ADD_THIS_LIST, songs);
+    commit(types.SET_CURRENTINDEX, 0);
+
+  }, 0);
+
+}
+
