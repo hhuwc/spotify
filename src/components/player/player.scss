@@ -115,61 +115,188 @@ $--background-color: #111;
 
     >.content {
       @include absolute-100();
-    }
+
+      .turntable {
+        height: 110vw;
+        position: relative;
+        overflow: hidden;
+        margin-top: 5vw;
+
+        >.needle {
+          position: relative;
+          left: 50%;
+          top: -1vw;
+          z-index: 10;
+
+          transform-origin: top left;
+          display: inline-block;
+          height: 35vw;
+          width: 25vw;
+          background-image: url("../../needle.png");
+          background-repeat: no-repeat;
+          background-size: contain;
+          transition: transform 0.5s;
+        }
 
 
-    .cd {
+        >.cd {
+          position: relative;
 
-      display: inline-block;
-      position: relative;
-      height: 250px;
-      width: 250px;
+          height: 70vw;
+          width: 70vw;
+          margin: 0 auto;
+          margin-top: -15vw;
 
-      .album {
-        width: 60%;
-        height: 60%;
-        border-radius: 50%;
-        background-color: rgba(130, 130, 130, 0.6);
-        @include absolute-center-middle();
+          .album {
+            width: 60%;
+            height: 60%;
+            border-radius: 50%;
+            background-color: rgba(130, 130, 130, 0.6);
+            @include absolute-center-middle();
+            z-index: 10;
+          }
+
+          &::before {
+            content: "";
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            @include absolute-center-middle();
+            background-color: rgba(130, 130, 130, 0.6);
+          }
+
+          &::after {
+            content: "";
+            width: 96%;
+            height: 96%;
+            border-radius: 50%;
+            @include absolute-center-middle();
+            background: rgb(0, 0, 0);
+            background: linear-gradient(45deg, rgba(0, 0, 0, 1) 0%, rgba(57, 56, 57, 1) 50%, rgba(0, 0, 0, 1) 100%);
+          }
+
+        }
+      }
+
+
+      .time-progress-bar {
+        margin: 4vw auto;
+        width: 70%;
+        height: 2px;
+        background-color: #888;
+        position: relative;
+
+        &-wrapper {
+          position: absolute;
+          left: 0;
+          bottom: 12vh;
+          width: 100vw;
+        }
+
+
+        >.progress-bar {
+          position: absolute;
+          top: 0;
+          left: 0;
+          height: 100%;
+
+          background-color: #fff;
+        }
+
+        >span:first-child {
+          position: absolute;
+          left: 0;
+          top: 0;
+          transform: translate(-125%, -50%);
+        }
+
+        >span:last-child {
+          position: absolute;
+          right: 0;
+          top: 0;
+          color: #888;
+          transform: translate(125%, -50%);
+        }
+
 
       }
 
-      .border {
-        width: 100%;
-        height: 100%;
-        border-radius: 50%;
-        @include absolute-center-middle();
-        background-color: rgba(130, 130, 130, 0.6);
+      .top-block {
+
+
+        >p:first-child {
+          position: relative;
+          line-height: 60px;
+
+          &>span:nth-child(2) {
+            position: absolute;
+            max-width: 200px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 14px;
+          }
+
+
+
+          &>span:first-child {
+            float: left;
+            font-size: 20px;
+
+            >.spfont {
+              font-size: 20px;
+            }
+          }
+
+          &>span:last-child {
+            float: right;
+
+            >.sp-loved {
+              color: #1db954;
+            }
+
+            font-size: 20px;
+
+            >.spfont {
+              font-size: 20px;
+            }
+          }
+        }
+
+        >p:last-child {
+          text-align: center;
+        }
       }
 
-
-
-      .disk {
-        width: 96%;
-        height: 96%;
-        border-radius: 50%;
-        @include absolute-center-middle();
-        background: rgb(0, 0, 0);
-        background: linear-gradient(45deg, rgba(0, 0, 0, 1) 0%, rgba(57, 56, 57, 1) 50%, rgba(0, 0, 0, 1) 100%);
-      }
-
-
-    }
-
-    .controll-progress-bar {
-      width: 80%;
-      height: 2px;
-      background-color: #aaa;
-      position: relative;
-
-      .progress-bar {
+      .controlls {
         position: absolute;
-        top: 0;
         left: 0;
-        height: 100%;
+        bottom: 5vh;
+        width: 100vw;
+        margin-top: 1vh;
 
-        background-color: #fff;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+
+        >.play-controll {
+          >.spfont {
+            font-size: 36px;
+            color: #aaa;
+          }
+
+          >.sp-play-circle {
+            color: white;
+          }
+        }
+
+        >.spfont {
+          font-size: 18px;
+        }
       }
+
     }
   }
 }

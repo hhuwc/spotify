@@ -5,48 +5,58 @@
         <div class="frosted-glass-img-layer"></div>
         <div class="frosted-glass-color-layer"></div>
         <div class="content">
+          <!-- 头部返回以及歌曲信息 -->
           <div class="top-block">
-            <i class="spfont sp-down" @click="setFullScreen(false)"></i>
-            {{this.currentSong.name}}
-            {{this.currentSong.author}}
-            <i
-              class="spfont sp-loved"
-              v-if="isLoved"
-              @click="dislike(currentSong.id)"
-            ></i>
-            <i class="spfont sp-love" v-else @click="like(currentSong)"></i>
-            
-            <i class="spfont sp-more"></i>
+            <p class="clearfix">
+              <span>
+                &nbsp;
+                <i class="spfont sp-down" @click="setFullScreen(false)"></i>
+              </span>
+              
+              <span>{{this.currentSong.name}}</span>
+              
+              <span>
+                <i class="spfont sp-loved" v-if="isLoved" @click="dislike(currentSong.id)"></i>
+                <i class="spfont sp-love" v-else @click="like(currentSong)"></i>
+                &nbsp;
+                <i class="spfont sp-more"></i>
+                &nbsp;
+              </span>
+            </p>
+            <p>{{this.currentSong.author}}</p>
           </div>
 
           <!--唱片机部分 -->
           <div class="turntable">
+            <span class="needle" :style="needleRotate"></span>
             <div class="cd" :style="rotateStyle">
-              <div class="border"></div>
-              <div class="disk"></div>
               <img class="album" :src="currentSong.picUrl">
             </div>
           </div>
 
           <!-- 进度条控制 -->
-          <div class="controll-progress-bar" @click="setProgress" ref="progress">
-            <div class="progress-bar" :style="{width:`${this.progress}%`}"></div>
+          <div class="time-progress-bar-wrapper">
+            <div class="time-progress-bar" @click="setProgress" ref="progress">
+              <span>{{this.currentTimeMMSS}}</span>
+              <div class="progress-bar" :style="{width:`${this.progress}%`}"></div>
+              <span>{{this.totalTime}}</span>
+            </div>
           </div>
+
           <!-- 控制区块 -->
           <div class="controlls">
             <i class="spfont" :class="`sp-${this.modeIcon}`" @click="changeMode"></i>
             
             <i class="spfont sp-previous" @click="jump(-1)"></i>
-            <i class="spfont sp-pause-circle" v-if="playing" @click="setPlay(false)"></i>
-            <i class="spfont sp-play-circle" v-else @click="setPlay(true)"></i>
+            
+            <span class="play-controll">
+              <i class="spfont sp-pause-circle" v-if="playing" @click="setPlay(false)"></i>
+              <i class="spfont sp-play-circle" v-else @click="setPlay(true)"></i>
+            </span>
             
             <i class="spfont sp-next" @click="jump(1)"></i>
             <i class="spfont sp-playlist"></i>
           </div>
-
-          <!-- <img :src="currentSong.picUrl" alt> -->
-          <span>{{this.totalTime}}</span>
-          <span>{{this.currentTimeMMSS}}</span>
         </div>
       </div>
     </transition>
@@ -149,6 +159,13 @@ export default {
     ]),
 
     ...mapGetters(["currentSong", "favoriteSongIds"]),
+
+    needleRotate() {
+      let deg = this.playThisSong ? 5 : -13;
+      return {
+        transform: `translateX(-20%) rotate(${deg}deg)`
+      };
+    },
 
     totalTime() {
       return this.calcDuration(this.currentSong.duration);
