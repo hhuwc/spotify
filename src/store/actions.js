@@ -33,6 +33,7 @@ export async function playThisSong({ commit, state, getters }, music) {
   }
   // 设置全屏
   commit(types.SET_FULLSCREEN, true);
+  commit(types.SET_PLAYING, true);
 
 }
 // 看看是否长期有效
