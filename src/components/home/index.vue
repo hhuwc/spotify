@@ -4,7 +4,7 @@
       <i class="spfont sp-setting"></i>
     </router-link>
 
-    <scroll class="scroll-wrapper" @scroll="scroll" :listenScroll="true">
+    <scroll ref="scroll" class="scroll-wrapper" @scroll="scroll" :listenScroll="true">
       <div class="scroll-block">
         <recent-play :recent-data="recent"></recent-play>
         <recommend-list title="专为你打造" :musics="personalized"></recommend-list>
@@ -21,6 +21,7 @@ import * as types from "../../store/mutationTypes.js";
 import RecommendList from "./recommend-list";
 import Scroll from "base/scroll";
 import { get } from "common/http";
+import { on, off } from "common/dom";
 
 export default {
   name: "home-page",
@@ -42,6 +43,10 @@ export default {
         this.calcMainColor(val[0].picUrl);
       }
     }
+  },
+  beforeRouteEnter(to, from, next) {
+    // resize 事件引起不能滚动
+    next(vm => vm.$refs.scroll.refresh());
   },
   computed: {
     ...mapGetters(["bottom"]),
