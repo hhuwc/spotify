@@ -3,27 +3,22 @@
     <keep-alive>
       <router-view></router-view>
     </keep-alive>
-    <!-- 全屏遮罩层 -->
-    <loading :style="bottom" v-show="isLoading"/>
     <player></player>
     <bottom-bar/>
   </div>
 </template>
 
 <script>
-import { mapGetters, mapState } from "vuex";
-import Loading from "base/loading";
+import { mapGetters } from "vuex";
 import BottomBar from "components/bottom-nav";
 import Player from "components/player/player";
 
 export default {
   components: {
     BottomBar,
-    Player,
-    Loading
+    Player
   },
   computed: {
-    ...mapState(["isLoading"]),
     ...mapGetters(["bottom"])
   }
 };

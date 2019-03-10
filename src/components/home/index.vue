@@ -3,7 +3,7 @@
     <router-link tag="span" class="setting" :style="settingStyle" to="/setting">
       <i class="spfont sp-setting"></i>
     </router-link>
-
+    <loading v-show="isLoading"></loading>
     <scroll ref="scroll" class="scroll-wrapper" @scroll="scroll" :listenScroll="true">
       <div class="scroll-block">
         <recent-play :recent-data="recent"></recent-play>
@@ -20,6 +20,7 @@ import { mapGetters, mapState, mapActions, mapMutations } from "vuex";
 import * as types from "../../store/mutationTypes.js";
 import RecommendList from "./recommend-list";
 import Scroll from "base/scroll";
+import Loading from "base/loading";
 import { get } from "common/http";
 import { on, off } from "common/dom";
 
@@ -28,19 +29,28 @@ export default {
   components: {
     RecentPlay,
     RecommendList,
-    Scroll
+    Scroll,
+    Loading
   },
   data() {
     return {
       scrollY: 0,
       topBGC: [69, 141, 189],
-      topBGCEnd: 25
+      topBGCEnd: 25,
+      isLoading: true
     };
   },
   watch: {
     recent(val, oldVal) {
       if (val.length > 0) {
         this.calcMainColor(val[0].picUrl);
+      }
+    },
+    personalized(val) {
+      if (val.length > 0) {
+        setTimeout(() => {
+          this.isLoading = false;
+        }, 2000);
       }
     }
   },
@@ -82,12 +92,11 @@ export default {
   },
 
   mounted() {
-    this.setLoading();
     this.getPersonalized();
   },
 
   methods: {
-    ...mapActions(["getPersonalized", "setLoading"]),
+    ...mapActions(["getPersonalized"]),
     scroll({ y }) {
       this.scrollY = y;
       let offSetTop = Math.abs(y);

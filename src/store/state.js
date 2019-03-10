@@ -24,8 +24,6 @@ const state = {
   // 歌曲url
   mp3: "",
 
-  isLoading: true,
-
   mode: PLAYMODE.order
 
 };

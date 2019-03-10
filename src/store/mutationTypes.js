@@ -20,7 +20,6 @@ export const SET_MP3_URL = "SET_MP3_URL";
 
 export const CLEAR_PLAYLIST = "CLEAR_PLAYLIST";
 
-export const SET_LOADING = "SET_LOADING";
 
 // 收藏歌曲
 export const LOVE_SONG = "LOVE_SONG";

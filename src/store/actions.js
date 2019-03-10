@@ -67,15 +67,6 @@ export async function setMP3({ commit, state }, musicId) {
   }
 }
 
-
-export async function setLoading({ commit }) {
-  commit(types.SET_LOADING, true);
-  setTimeout(() => {
-    commit(types.SET_LOADING, false);
-  }, 2500);
-}
-
-
 export function playThisList({ commit, state }, songs) {
   let flag = true;
 
@@ -88,7 +79,11 @@ export function playThisList({ commit, state }, songs) {
     flag = false;
   }
 
-  if (flag) return;
+  if (flag) {
+    commit(types.SET_CURRENTINDEX, 0);
+    return;
+  }
+
 
   commit(types.SET_CURRENTINDEX, -1);
   commit(types.SET_MP3_URL, null);

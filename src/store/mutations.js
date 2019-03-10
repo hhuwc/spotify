@@ -28,9 +28,7 @@ const mutations = {
     // 观察url 失效问题
     // state.mp3 = "http://m10.music.126.net/20190307144532/cde67628fa567a3bb5621033ad1cbbc2/ymusic/f29a/69f0/e7de/42786ec417ad8b86eb588d96ee18d103.mp3";
   },
-  [types.SET_LOADING](state, flag) {
-    state.isLoading = flag;
-  },
+
 
   // 喜欢歌曲
   [types.LOVE_SONG](state, music) {

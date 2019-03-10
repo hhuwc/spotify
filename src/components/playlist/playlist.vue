@@ -25,12 +25,15 @@
           <song v-for="item in songs" :key="item.id" :info="item"></song>
         </div>
       </scroll>
+
+      <loading v-show="isLoading"></loading>
     </div>
   </transition>
 </template>
 <script>
 import { mapGetters, mapState, mapMutations, mapActions } from "vuex";
 import Scroll from "base/scroll";
+import Loading from "base/loading";
 import Song from "../song";
 import { get } from "common/http";
 import * as types from "../../store/mutationTypes.js";
@@ -38,7 +41,8 @@ export default {
   name: "playlist",
   components: {
     Scroll,
-    Song
+    Song,
+    Loading
   },
   data() {
     return {
@@ -50,7 +54,8 @@ export default {
       disc: "",
       // 图片主色彩这个由python计算之后返回
       mainColor: [17, 17, 17],
-      songs: []
+      songs: [],
+      isLoading: true
     };
   },
   computed: {
@@ -141,6 +146,9 @@ export default {
     },
     songs(val) {
       if (val.length !== 0) {
+        setTimeout(() => {
+          this.isLoading = false;
+        }, 3000);
       }
     }
   },
@@ -148,11 +156,9 @@ export default {
   mounted() {
     // 第一步骤请求 歌单中的信心得到歌单里面歌曲信息
     // 第二部替换图片  并计算背景颜色
-    this.setLoading();
-    console.log("组件加载完成");
   },
   methods: {
-    ...mapActions(["setLoading", "playThisList"]),
+    ...mapActions(["playThisList"]),
 
     scroll({ y }) {
       this.scrollY = y;
