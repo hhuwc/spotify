@@ -284,19 +284,28 @@ $--background-color: #111;
         >.play-controll {
           >.spfont {
             font-size: 36px;
-            color: #aaa;
-          }
-
-          >.sp-play-circle {
-            color: white;
           }
         }
 
         >.spfont {
-          font-size: 18px;
+          font-size: 24px;
         }
       }
 
     }
   }
+
+  .player-enter {
+    transform: translateY(60px);
+  }
+
+  .player-leave-active,
+  .player-enter-active {
+    transition: all 0.3s ease;
+  }
+
+  .player-leave-to {
+    transform: translateY(100vh);
+  }
+
 }
