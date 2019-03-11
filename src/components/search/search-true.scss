@@ -131,9 +131,11 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            font-size: 14px;
 
             &:last-child {
               color: #bbb;
+              font-size: 12px;
             }
           }
         }
