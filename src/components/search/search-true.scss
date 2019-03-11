@@ -8,7 +8,8 @@
   background-color: #111;
   transition: all 0.3s;
 
-
+  $--normal-background: rgb(66, 68, 69);
+  $--normal-size: 48px;
 
   >.input-wrapper {
     display: flex;
@@ -18,10 +19,6 @@
     padding: 8px 8px;
     transition: all 0.25s;
     margin-top: 5px;
-
-
-    $--normal-background: rgb(66, 68, 69);
-    $--normal-size: 48px;
 
     >.input-block {
       background-color: $--normal-background;
@@ -85,6 +82,7 @@
     right: 0;
     bottom: 0;
     overflow: hidden;
+    padding: 8px;
 
 
     >.search-result {
@@ -100,29 +98,22 @@
       }
 
       >.song-item {
-        width: 85%;
-        margin: 0 auto;
-        height: 50px;
+        width: 100%;
+        height: $--normal-size;
         display: flex;
         align-items: center;
 
         >i {
-          width: 50px;
-          height: 50px;
+          width: $--normal-size;
+          height: $--normal-size;
           font-size: 36px;
-          line-height: 50px;
+          line-height: $--normal-size;
           display: inline-block;
           text-align: center;
           color: lightgrey;
         }
 
-        >i:first-child {
-          margin-right: 10px;
-        }
-
         >i:last-child {
-          margin-left: 10px;
-          margin-right: 0;
           font-size: 24px;
         }
 
@@ -131,14 +122,19 @@
           display: inline-flex;
           flex-direction: column;
           align-items: flex-start;
+          padding-left: 10px;
 
           >p {
-            height: 25px;
-            line-height: 25px;
+            height: $--normal-size/2;
+            line-height: $--normal-size/2;
             max-width: 50vw;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+
+            &:last-child {
+              color: #bbb;
+            }
           }
         }
 
@@ -161,7 +157,7 @@
   }
 
   >.no-query {
-    padding: 15px 8px;
+    padding: 8px 8px;
 
     >.search-trend {
       .title {
@@ -189,6 +185,7 @@
 
       .title {
         font-size: 16px;
+        text-align: center;
       }
 
       .clear {
@@ -211,7 +208,7 @@
           }
 
           >i {
-            width: 6vw;
+            width: $--normal-size;
             display: inline-block;
             text-align: center;
             color: lightcyan;
