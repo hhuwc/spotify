@@ -24,8 +24,9 @@ const state = {
   // 歌曲url
   mp3: "",
 
-  mode: PLAYMODE.order
+  mode: PLAYMODE.order,
 
+  searchHistory: []
 };
 
 export default state;

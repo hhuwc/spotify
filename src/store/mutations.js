@@ -58,7 +58,33 @@ const mutations = {
   [types.ADD_THIS_LIST](state, songs) {
     const { length } = state.playList;
     state.playList.splice(0, length, ...songs);
-  }
+  },
+
+  [types.ADD_HISTORY](state, his) {
+    let index = state.searchHistory.findIndex(el => el === his);
+    if (index > -1) {
+      let temp = state.searchHistory.splice(index, 1);
+      state.searchHistory.splice(0, 0, temp[0]);
+    } else {
+      state.searchHistory.splice(0, 0, his);
+    }
+    
+    const length = state.searchHistory.length;
+    if (length > 10) {
+      state.searchHistory.splice(10, length - 10);
+    }
+  },
+
+  [types.DEL_HISTORY](state, his) {
+    if (!his) {
+      state.searchHistory.splice(0, state.searchHistory.length);
+    } else {
+      let index = state.searchHistory.findIndex(el => el === his);
+      if (index > -1) {
+        state.searchHistory.splice(index, 1);
+      }
+    }
+  },
 
 };
 

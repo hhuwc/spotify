@@ -34,4 +34,8 @@ export const SET_PLAY_MODE = "SET_PLAY_MODE";
 
 export const ADD_RECENT_PLAY = "ADD_RECENT_PLAY";
 
+export const ADD_HISTORY = "ADD_HISTORY";
+
+export const DEL_HISTORY = "DEL_HISTORY";
+
 
