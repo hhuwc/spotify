@@ -35,7 +35,7 @@ export default {
   data() {
     return {
       scrollY: 0,
-      topBGC: [69, 141, 189],
+      topBGC: [223, 119, 124],
       topBGCEnd: 25,
       isLoading: true
     };

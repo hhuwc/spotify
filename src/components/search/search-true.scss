@@ -1,0 +1,225 @@
+.search-true {
+  position: fixed;
+  z-index: 140;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: #111;
+  transition: all 0.3s;
+
+
+
+  >.input-wrapper {
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    width: 100%;
+    padding: 8px 8px;
+    transition: all 0.25s;
+    margin-top: 5px;
+
+
+    $--normal-background: rgb(66, 68, 69);
+    $--normal-size: 48px;
+
+    >.input-block {
+      background-color: $--normal-background;
+      border-radius: 4px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      height: $--normal-size;
+      line-height: $--normal-size;
+      transition: all 0.25s;
+
+      >i {
+        width: $--normal-size;
+        height: $--normal-size;
+        line-height: $--normal-size;
+        font-size: 20px;
+        font-weight: lighter;
+        transition: all 0.25s;
+        text-align: center;
+        color: white;
+      }
+
+      >input {
+        flex-grow: 1;
+        height: $--normal-size;
+        line-height: $--normal-size;
+        outline: none;
+        border: none;
+        background-color: $--normal-background;
+        font-size: 16px;
+        color: whitesmoke;
+
+        &::placeholder {
+          text-align: center;
+          color: white;
+          font-size: 18px;
+          transition: all 0.25s;
+        }
+      }
+
+    }
+
+
+    &-focus {
+      background-color: $--normal-background;
+
+      >.input-block {
+
+        >i {
+          font-size: 24px;
+        }
+
+      }
+    }
+  }
+
+  >.search-scroll {
+    position: absolute;
+    top: 70px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+
+
+    >.search-result {
+
+      @keyframes loading {
+        from {
+          transform: rotate(0deg);
+        }
+
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      >.song-item {
+        width: 85%;
+        margin: 0 auto;
+        height: 50px;
+        display: flex;
+        align-items: center;
+
+        >i {
+          width: 50px;
+          height: 50px;
+          font-size: 36px;
+          line-height: 50px;
+          display: inline-block;
+          text-align: center;
+          color: whitesmoke;
+        }
+
+        >i:first-child {
+          margin-right: 10px;
+        }
+
+        >i:last-child {
+          margin-left: 10px;
+          margin-right: 0;
+          font-size: 24px;
+        }
+
+        >div {
+          flex-grow: 1;
+          display: inline-flex;
+          flex-direction: column;
+          align-items: flex-start;
+
+          >p {
+            height: 25px;
+            line-height: 25px;
+            max-width: 50vw;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+        }
+
+      }
+
+      >.loading-more {
+        text-align: center;
+        padding: 5px 0;
+
+        >.sp-loading {
+          animation: loading 2s infinite linear;
+          display: inline-block;
+          font-size: 24px;
+          color: #1cb853;
+
+        }
+      }
+
+    }
+  }
+
+  >.no-query {
+    padding: 15px 8px;
+
+    >.search-trend {
+      .title {
+        font-size: 16px;
+      }
+
+      .trend-block {
+        display: flex;
+        flex-wrap: wrap;
+
+        .hot-word {
+          background-color: lightgrey;
+          color: #111;
+          font-size: 14px;
+          margin: 5px 5px 5px 0;
+          padding: 3px 5px;
+          border-radius: 10px;
+
+        }
+      }
+    }
+
+    >.recent-search {
+      margin-top: 10px;
+
+      .title {
+        font-size: 16px;
+      }
+
+      .clear {
+        font-size: 17px;
+        color: lightcyan;
+      }
+
+      .historys {
+        .history {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          font-size: 14px;
+
+          >span {
+            max-width: 80vw;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+
+          >i {
+            width: 6vw;
+            display: inline-block;
+            text-align: center;
+            color: lightcyan;
+            font-size: 20px;
+          }
+        }
+      }
+    }
+  }
+
+}

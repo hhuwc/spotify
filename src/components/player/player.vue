@@ -117,7 +117,7 @@ export default {
         clearInterval(this.rotateTimer);
         this.rotateTimer = setInterval(() => {
           this.rotate >= 359 ? (this.rotate = 0) : (this.rotate += 1);
-        }, 1000 / 60);
+        }, 1000 / 60 / 2);
       }
 
       if (!val && oldVal) {
