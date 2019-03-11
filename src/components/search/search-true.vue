@@ -38,7 +38,7 @@
             <p>{{item.name}}</p>
             <p>{{item.author}}</p>
           </div>
-          <i class="spfont sp-play"></i>
+          <i class="spfont sp-right"></i>
         </div>
         <div class="loading-more" v-if="loadMore">
           <i class="spfont sp-loading"></i>
