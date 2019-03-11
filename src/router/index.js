@@ -3,16 +3,16 @@ import Router from "vue-router";
 
 Vue.use(Router);
 
-import InputTest from '../components/input-test';
-import InputTestA from '../components/input-test-1';
 
 
 import Home from "../components/home";
-import Library from "../components/library";
+import Setting from '../components/setting';
 
-import PlayList from '../components/test4';
-import Setting from '../components/test3';
-import Search from '../components/search';
+
+import Library from "../components/library";
+import Search from '../components/search/search';
+import PlayList from '../components/playlist/playlist';
+import Input from '../components/search/search-true';
 
 export default new Router({
   routes: [
@@ -28,22 +28,26 @@ export default new Router({
           path: "playlist/:id",
           component: PlayList
         },
-        {
-          path: "setting",
-          component: Setting
-        }
       ]
+    },
+    {
+      path: "/setting",
+      component: Setting
+    },
+    {
+      path: "/rank",
+      component: Input
     },
     {
       path: "/search",
       component: Search,
       children: [{
-        path: "singer/:id",
-        component: InputTestA
+        path: "input",
+        component: Input
       },
       {
         path: "playlist/:id",
-        component: InputTestA
+        component: Input
       }]
     },
     {
