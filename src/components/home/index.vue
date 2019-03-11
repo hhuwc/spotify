@@ -50,7 +50,7 @@ export default {
       if (val.length > 0) {
         setTimeout(() => {
           this.isLoading = false;
-        }, 2000);
+        }, 1500);
       }
     }
   },

@@ -148,7 +148,7 @@ export default {
       if (val.length !== 0) {
         setTimeout(() => {
           this.isLoading = false;
-        }, 3000);
+        }, 2000);
       }
     }
   },

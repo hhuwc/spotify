@@ -11,8 +11,13 @@
       <div class="search-scroll-wrapper">
         <div class="title">浏览全部</div>
         <div class="tags">
-          <div class="tag" v-for="n in 20" :key="n" :style="{'background-color':'red'}">
-            <div class="name">{{n}}流行</div>
+          <div
+            class="tag"
+            v-for="item in Imgs"
+            :key="item.name"
+            :style="{'background-color':`${item.bgc}`}"
+          >
+            <div class="name">{{item.name}}</div>
             <img src="./hiphop.jpg" alt>
           </div>
         </div>
@@ -25,6 +30,8 @@
 <script>
 import { mapGetters } from "vuex";
 import Scroll from "base/scroll";
+import Imgs from "./fakeData.js";
+
 export default {
   name: "search-main",
   components: {
@@ -32,6 +39,7 @@ export default {
   },
   data() {
     return {
+      Imgs,
       scrollY: 0,
       inputTop: 140,
       bgcPos: 50
@@ -39,7 +47,7 @@ export default {
   },
   beforeRouteEnter(to, from, next) {
     // resize 事件引起不能滚动
-    next(vm => vm.$refs.scroll.refresh());
+    next(vm => vm.$refs.scroll && vm.$refs.scroll.refresh());
   },
   computed: {
     ...mapGetters(["bottom"]),
