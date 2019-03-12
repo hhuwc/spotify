@@ -113,8 +113,8 @@ export default {
         this.$refs.music.play();
         clearInterval(this.rotateTimer);
         this.rotateTimer = setInterval(() => {
-          this.rotate >= 359 ? (this.rotate = 0) : (this.rotate += 1);
-        }, 1000 / 60 / 2);
+          this.rotate >= 360 ? (this.rotate = 0) : (this.rotate += 0.5);
+        }, 1000 / 60);
       }
 
       if (!val && oldVal) {
