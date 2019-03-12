@@ -13,7 +13,6 @@
     <div class="action">
       <i class="spfont sp-loved" v-if="isLoved" @click="dislike(info.id)"></i>
       <i class="spfont sp-love" v-else @click="like(info)"></i>
-      &nbsp;&nbsp;
       <i class="spfont sp-more"></i>
     </div>
   </div>
@@ -122,6 +121,10 @@ $--background-color: #404040;
 
     .spfont {
       font-size: 21px;
+      height: 70px;
+      width: 35px;
+      line-height: 70px;
+      display: inline-block;
     }
   }
 }

@@ -110,10 +110,13 @@
           display: inline-block;
           border-radius: 3px;
           filter: drop-shadow(2px 2px 1px rgb(0, 0, 0));
+          background-color: #aaa;
         }
 
         >i:last-child {
           font-size: 24px;
+          width: $--normal-size;
+          text-align: center;
         }
 
         >div {

@@ -9,7 +9,6 @@
           <div class="top-block">
             <p class="clearfix">
               <span>
-                &nbsp;
                 <i class="spfont sp-down" @click="setFullScreen(false)"></i>
               </span>
               
@@ -18,9 +17,8 @@
               <span>
                 <i class="spfont sp-loved" v-if="isLoved" @click="dislike(currentSong.id)"></i>
                 <i class="spfont sp-love" v-else @click="like(currentSong)"></i>
-                &nbsp;
+                
                 <i class="spfont sp-more"></i>
-                &nbsp;
               </span>
             </p>
             <p>{{this.currentSong.author}}</p>

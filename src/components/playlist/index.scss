@@ -10,12 +10,14 @@ $--background-color: #111;
   z-index: 50;
   background-color: $--background-color;
 
- 
+
   .title-block {
     position: absolute;
     height: 75px;
     line-height: 60px;
     width: 100%;
+    padding: 0 3%;
+
     z-index: 40;
 
     >span {
@@ -23,6 +25,8 @@ $--background-color: #111;
 
       .spfont {
         font-size: 20px;
+        display: inline-block;
+        width: 2em;
       }
     }
 
@@ -32,6 +36,10 @@ $--background-color: #111;
 
     .title-right {
       float: right;
+
+      .spfont {
+        text-align: right;
+      }
     }
 
     .title-content {

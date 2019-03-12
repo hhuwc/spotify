@@ -3,14 +3,17 @@
     <div class="some-playlist clearfix" :style="bottom">
       <div class="title-block" :style="titleBGC">
         <span class="title-left">
-          &nbsp;
           <i class="spfont sp-left" @click="$router.back(-1)"></i>
         </span>
         <span class="title-right">
-          <i class="spfont sp-loved" v-if="isListLiked" style="color:#1db954;" @click="disLikeList(id)"></i>
+          <i
+            class="spfont sp-loved"
+            v-if="isListLiked"
+            style="color:#1db954;"
+            @click="disLikeList(id)"
+          ></i>
           <i class="spfont sp-love" v-else @click="likeList(listData)"></i>
-          &nbsp;
-          <i class="spfont sp-more"></i>&nbsp;
+          <i class="spfont sp-more"></i>
         </span>
         <div class="title-content" :style="titleAlpha">{{this.name}}</div>
       </div>

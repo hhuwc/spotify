@@ -226,7 +226,8 @@ $--background-color: #111;
 
         >p:first-child {
           position: relative;
-          line-height: 60px;
+          line-height: 50px;
+          padding: 0 3%;
 
           &>span:nth-child(2) {
             position: absolute;
@@ -244,9 +245,11 @@ $--background-color: #111;
           &>span:first-child {
             float: left;
             font-size: 20px;
+            width: 2em;
 
             >.spfont {
               font-size: 20px;
+
             }
           }
 
@@ -259,8 +262,16 @@ $--background-color: #111;
 
             font-size: 20px;
 
+
             >.spfont {
               font-size: 20px;
+
+              display: inline-block;
+
+              &:first-child {
+                width: 2em;
+                text-align: center;
+              }
             }
           }
         }
