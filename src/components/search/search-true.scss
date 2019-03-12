@@ -102,15 +102,14 @@
         height: $--normal-size;
         display: flex;
         align-items: center;
+        margin-bottom: 10px;
 
-        >i {
+        >img {
           width: $--normal-size;
           height: $--normal-size;
-          font-size: 36px;
-          line-height: $--normal-size;
           display: inline-block;
-          text-align: center;
-          color: lightgrey;
+          border-radius: 3px;
+          filter: drop-shadow(2px 2px 1px rgb(0, 0, 0));
         }
 
         >i:last-child {

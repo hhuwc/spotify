@@ -33,7 +33,8 @@
           :key="item.id + Math.random()"
           @click="playThisSong(item)"
         >
-          <i class="spfont sp-music"></i>
+          <!-- <i class="spfont sp-music"></i> -->
+          <img v-lazy="item.picUrl" />
           <div>
             <p>{{item.name}}</p>
             <p>{{item.author}}</p>
