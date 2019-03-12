@@ -95,8 +95,8 @@ $--background-color: #404040;
     padding: 10px;
     padding-left: 15px;
     line-height: 25px;
-    flex-grow: 1;
-    width: 100px;
+    flex: 1;
+    overflow: hidden;
     .music-name {
       color: #fff;
       font-size: 14px;

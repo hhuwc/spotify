@@ -6,15 +6,23 @@
       :currentIndex="currentIndex"
       @switch="change"
     ></switches>
-    <scroll class="love-play-list" v-if="currentIndex === 0">
+    <scroll class="love-play-list" v-if="currentIndex === 1">
       <div>
-        <div class="loved-list-item" v-for="item in favoriteList" :key="item.id" @click="click(item.id)">
+        <div
+          class="loved-list-item"
+          v-for="item in favoriteList"
+          :key="item.id"
+          @click="click(item.id)"
+        >
           <img :src="item.picUrl" alt>
-          <div>{{item.name}}</div>
+          <div>
+            <div>{{item.name}}</div>
+            <div>{{item.playCount}} times</div>
+          </div>
         </div>
       </div>
     </scroll>
-    <scroll class="love-song-list" v-if="currentIndex === 1">
+    <scroll class="love-song-list" v-if="currentIndex === 0">
       <div>
         <song v-for="item in favoriteSong" :key="item.id" :info="item"></song>
       </div>
@@ -35,7 +43,7 @@ export default {
   },
   data() {
     return {
-      switches: ["Playlists", "Musics"],
+      switches: ["Musics", "Playlists"],
       currentIndex: 0
     };
   },

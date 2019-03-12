@@ -120,16 +120,19 @@
         }
 
         >div {
-          flex-grow: 1;
-          display: inline-flex;
-          flex-direction: column;
-          align-items: flex-start;
           padding-left: 10px;
+
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+
+          flex: 1;
+          overflow: hidden;
 
           >p {
             height: $--normal-size/2;
             line-height: $--normal-size/2;
-            max-width: 50vw;
+
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;

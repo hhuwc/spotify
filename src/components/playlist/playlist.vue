@@ -59,7 +59,8 @@ export default {
       // 图片主色彩这个由python计算之后返回
       mainColor: [17, 17, 17],
       songs: [],
-      isLoading: true
+      isLoading: true,
+      playCount: 0
     };
   },
   computed: {
@@ -74,7 +75,8 @@ export default {
       return {
         id: this.id,
         name: this.name,
-        picUrl: this.picUrl
+        picUrl: this.picUrl,
+        playCount: this.playCount
       };
     },
 
@@ -194,6 +196,7 @@ export default {
       if (playlist.length > 0) {
         this.name = playlist[0].name;
         this.picUrl = playlist[0].picUrl;
+        this.playCount = playlist[0].playCount;
       } else {
         this.$router.push({ path: "/home" });
       }
