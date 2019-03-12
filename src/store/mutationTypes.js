@@ -31,11 +31,17 @@ export const DiSLIKE_SONG = "DiSLIKE_SONG";
 
 export const SET_PLAY_MODE = "SET_PLAY_MODE";
 
+// 记录最近播放
 
 export const ADD_RECENT_PLAY = "ADD_RECENT_PLAY";
 
+// 记录搜索历史
 export const ADD_HISTORY = "ADD_HISTORY";
 
 export const DEL_HISTORY = "DEL_HISTORY";
 
+// 收藏列表
+export const LIKE_LIST = "LIKE_LIST";
+
+export const DISLIKE_LIST = "DISLIKE_LIST";
 

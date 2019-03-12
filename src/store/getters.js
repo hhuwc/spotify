@@ -9,3 +9,6 @@ export const currentSong = state =>
 
 
 export const favoriteSongIds = state => state.favoriteSong.map(item => item.id);
+
+
+export const favoriteListIds = state => state.favoriteList.map(item => item.id);

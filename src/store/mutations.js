@@ -68,7 +68,7 @@ const mutations = {
     } else {
       state.searchHistory.splice(0, 0, his);
     }
-    
+
     const length = state.searchHistory.length;
     if (length > 10) {
       state.searchHistory.splice(10, length - 10);
@@ -85,6 +85,28 @@ const mutations = {
       }
     }
   },
+
+  [types.LIKE_LIST](state, list) {
+    if (!list) return;
+    let index = state.favoriteList.findIndex(el => el.id === list.id);
+    if (index > -1) {
+      // 已经收藏过了
+      state.favoriteList.splice(index, 1);
+    }
+    state.favoriteList.splice(0, 0, list);
+
+  },
+
+  [types.DISLIKE_LIST](state, listId) {
+    if (!listId) return;
+
+    let index = state.favoriteList.findIndex(el => el.id === listId);
+    if (index > -1) {
+      state.favoriteList.splice(index, 1);
+    }
+
+  }
+
 
 };
 
