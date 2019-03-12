@@ -164,11 +164,13 @@
     >.search-trend {
       .title {
         font-size: 16px;
+        padding-left: 14px;
       }
 
       .trend-block {
         display: flex;
         flex-wrap: wrap;
+        padding-left: 14px;
 
         .hot-word {
           background-color: lightgrey;
@@ -188,10 +190,12 @@
       .title {
         font-size: 16px;
         text-align: center;
+        margin-top: 15px;
       }
 
       .clear {
         font-size: 17px;
+        padding-left: 14px;
         color: lightcyan;
       }
 
@@ -201,6 +205,7 @@
           justify-content: space-between;
           align-items: center;
           font-size: 14px;
+          padding-left: 14px;
 
           >span {
             max-width: 80vw;
