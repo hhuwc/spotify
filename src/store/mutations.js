@@ -70,8 +70,8 @@ const mutations = {
     }
 
     const length = state.searchHistory.length;
-    if (length > 10) {
-      state.searchHistory.splice(10, length - 10);
+    if (length > 5) {
+      state.searchHistory.splice(10, length - 5);
     }
   },
 
