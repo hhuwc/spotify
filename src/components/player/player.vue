@@ -89,7 +89,6 @@
 <script>
 import * as types from "store/mutationTypes";
 import { mapState, mapMutations, mapGetters, mapActions } from "vuex";
-import { debounce } from "throttle-debounce";
 import { on, off } from "common/dom";
 import { PLAYMODE } from "common/config";
 export default {

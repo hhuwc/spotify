@@ -7,7 +7,9 @@
           <i class="spfont sp-left" @click="$router.back(-1)"></i>
         </span>
         <span class="title-right">
-          <i class="spfont sp-love"></i>&nbsp;
+          <i class="spfont sp-loved" v-if="isListLiked" style="color:#1db954;" @click="disLikeList(id)"></i>
+          <i class="spfont sp-love" v-else @click="likeList(listData)"></i>
+          &nbsp;
           <i class="spfont sp-more"></i>&nbsp;
         </span>
         <div class="title-content" :style="titleAlpha">{{this.name}}</div>
@@ -50,8 +52,7 @@ export default {
       id: "",
       name: "",
       picUrl: "",
-      // 歌曲描述
-      disc: "",
+
       // 图片主色彩这个由python计算之后返回
       mainColor: [17, 17, 17],
       songs: [],
@@ -59,8 +60,20 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["bottom"]),
+    ...mapGetters(["bottom", "favoriteListIds"]),
     ...mapState(["personalized"]),
+
+    isListLiked() {
+      return this.favoriteListIds.includes(this.id);
+    },
+
+    listData() {
+      return {
+        id: this.id,
+        name: this.name,
+        picUrl: this.picUrl
+      };
+    },
 
     // 按钮的top值
     buttonTop() {
@@ -159,7 +172,10 @@ export default {
   },
   methods: {
     ...mapActions(["playThisList"]),
-
+    ...mapMutations({
+      likeList: types.LIKE_LIST,
+      disLikeList: types.DISLIKE_LIST
+    }),
     scroll({ y }) {
       this.scrollY = y;
     },
