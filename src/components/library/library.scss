@@ -1,0 +1,44 @@
+$--background-color: #111111;
+$--base-color: #fcfafa;
+
+.library-pane {
+  color: $--base-color;
+  background-color: $--background-color;
+  position: absolute;
+  top: 0;
+  bottom: 60px;
+  width: 100%;
+  overflow: hidden;
+
+  .switch-block {
+    background: linear-gradient(rgb(232, 120, 152) 0%, rgb(17, 17, 17) 100%);
+  }
+
+  .love-play-list,
+  .love-song-list {
+    position: absolute;
+    top: 74px;
+    bottom: 0;
+    width: 100%;
+    overflow: hidden;
+
+    >div {
+      padding-bottom: 10px;
+      padding-top: 10px;
+    }
+  }
+
+  .love-play-list {
+    .loved-list-item {
+      width: 94%;
+      margin: 0 auto;
+
+      >img {
+        height: 100px;
+        width: 100px;
+      }
+
+      >div {}
+    }
+  }
+}
