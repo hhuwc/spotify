@@ -3,16 +3,12 @@ import Router from "vue-router";
 
 Vue.use(Router);
 
-
-
 import Home from "../components/home";
 import Setting from '../components/setting';
-
-
-import Library from "../components/library";
+import Library from "../components/library/library";
 import Search from '../components/search/search';
 import PlayList from '../components/playlist/playlist';
-import Input from '../components/search/search-true';
+import SearchTrue from '../components/search/search-true';
 
 export default new Router({
   routes: [
@@ -34,20 +30,13 @@ export default new Router({
       path: "/setting",
       component: Setting
     },
-    {
-      path: "/rank",
-      component: Input
-    },
+
     {
       path: "/search",
       component: Search,
       children: [{
         path: "input",
-        component: Input
-      },
-      {
-        path: "playlist/:id",
-        component: Input
+        component: SearchTrue
       }]
     },
     {
