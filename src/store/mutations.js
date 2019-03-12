@@ -71,7 +71,7 @@ const mutations = {
 
     const length = state.searchHistory.length;
     if (length > 5) {
-      state.searchHistory.splice(10, length - 5);
+      state.searchHistory.splice(5, length - 5);
     }
   },
 
