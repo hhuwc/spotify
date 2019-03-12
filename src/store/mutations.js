@@ -1,4 +1,5 @@
 import * as types from './mutationTypes';
+import { setLoveSongs, setPlayHistory, setQueryHistory, setLoveLists } from "common/storage";
 
 const mutations = {
 
@@ -33,11 +34,14 @@ const mutations = {
   // 喜欢歌曲
   [types.LOVE_SONG](state, music) {
     state.favoriteSong.push(music);
+    setLoveSongs(state.favoriteSong);
   },
   // 取消喜欢歌曲
   [types.DiSLIKE_SONG](state, id) {
     let index = state.favoriteSong.findIndex(el => el.id == id);
     if (index > -1) state.favoriteSong.splice(index, 1);
+
+    setLoveSongs(state.favoriteSong);
   },
 
   [types.SET_PLAY_MODE](state, mode) {
@@ -52,7 +56,7 @@ const mutations = {
       state.recent.splice(index, 1);
       state.recent.splice(0, 0, music);
     }
-
+    setPlayHistory(state.recent);
   },
 
   [types.ADD_THIS_LIST](state, songs) {
@@ -73,6 +77,7 @@ const mutations = {
     if (length > 5) {
       state.searchHistory.splice(5, length - 5);
     }
+    setQueryHistory(state.searchHistory);
   },
 
   [types.DEL_HISTORY](state, his) {
@@ -84,6 +89,7 @@ const mutations = {
         state.searchHistory.splice(index, 1);
       }
     }
+    setQueryHistory(state.searchHistory);
   },
 
   [types.LIKE_LIST](state, list) {
@@ -94,7 +100,7 @@ const mutations = {
       state.favoriteList.splice(index, 1);
     }
     state.favoriteList.splice(0, 0, list);
-
+    setLoveLists(state.favoriteList);
   },
 
   [types.DISLIKE_LIST](state, listId) {
@@ -104,7 +110,7 @@ const mutations = {
     if (index > -1) {
       state.favoriteList.splice(index, 1);
     }
-
+    setLoveLists(state.favoriteList);
   }
 
 

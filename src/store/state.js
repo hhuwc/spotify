@@ -1,14 +1,15 @@
 import { PLAYMODE } from "common/config";
+import { getLoveSongs, getPlayHistory, getQueryHistory, getLoveLists } from "common/storage";
 
 const state = {
   // 个性化推荐的歌曲
   personalized: [],
   // 最近播放的歌曲
-  recent: [],
+  recent: getPlayHistory(),
   // 收藏的歌单
-  favoriteList: [],
+  favoriteList: getLoveLists(),
   // 收藏的歌曲
-  favoriteSong: [],
+  favoriteSong: getLoveSongs(),
 
   // 全屏播放
   fullScreen: false,
@@ -26,7 +27,7 @@ const state = {
 
   mode: PLAYMODE.order,
 
-  searchHistory: []
+  searchHistory: getQueryHistory()
 };
 
 export default state;

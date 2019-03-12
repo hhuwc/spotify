@@ -38,7 +38,7 @@ $--base-color: #fcfafa;
       >img {
         height: 85px;
         width: 85px;
-
+        filter: drop-shadow(1px 1px 1px #aaa);
       }
 
       >div {
@@ -56,7 +56,7 @@ $--base-color: #fcfafa;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
-     
+
         }
 
         >div:last-child {
