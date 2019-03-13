@@ -11,7 +11,17 @@
 
 #### 3.预览
   地址http://47.102.204.173
-  ![首页](./imgs/首页.png)
+
+  <div style="display:flex;">
+    <img src="./imgs/首页.png" style="width:187.5px;height:406px;margin:10px"/>
+    <img src="./imgs/歌单列表.png" style="width:187.5px;height:406px;margin:10px"/>
+    <img src="./imgs/播放器.png" style="width:187.5px;height:406px;margin:10px"/>
+    <img src="./imgs/搜索界面.png" style="width:187.5px;height:406px;margin:10px"/>
+    <img src="./imgs/搜索结果.png" style="width:187.5px;height:406px;margin:10px"/>
+    <img src="./imgs/收藏歌曲.png" style="width:187.5px;height:406px;margin:10px"/>
+    
+  </div>
+  
 
 
 
