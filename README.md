@@ -10,16 +10,15 @@
   之所以要搞一个python的图片计算后端，是因为要提取图片主要颜色，根据图片不同，来更换不同的背景，这项工作如果要在前端做会比较卡顿，所以直接放到后端做了，并且后端可以缓存计算结果，这样第二次计算时并不会耗时很久。
 
 #### 3.预览
-  地址http://47.102.204.173
-
-  <div style="display:flex;max-width:720px;flex-wrap:wrap">
-    <img src="./imgs/首页.png" style="width:93.75px;height:203px;margin:10px"/>
-    <img src="./imgs/歌单列表.png" style="width:93.75px;height:203px;margin:10px"/>
-    <img src="./imgs/播放器.png" style="width:93.75px;height:203px;margin:10px"/>
-    <img src="./imgs/搜索界面.png" style="width:93.75px;height:203px;margin:10px"/>
-    <img src="./imgs/搜索结果.png" style="width:93.75px;height:203px;margin:10px"/>
-    <img src="./imgs/收藏歌曲.png" style="width:93.75px;height:203px;margin:10px"/>
-    
+  地址[http://47.102.204.173](http://47.102.204.173)
+  
+  <div style="display:flex;flex-wrap:wrap">
+    <img src="./imgs/首页.png" width=93.75  height=203 style="margin:10px"/>
+    <img src="./imgs/歌单列表.png" width=93.75  height=203 style="margin:10px"/>
+    <img src="./imgs/播放器.png" width=93.75  height=203 style="margin:10px"/>
+    <img src="./imgs/搜索界面.png" width=93.75  height=203 style="margin:10px"/>
+    <img src="./imgs/搜索结果.png" width=93.75  height=203 style="margin:10px"/>
+    <img src="./imgs/收藏歌曲.png" width=93.75  height=203 style="margin:10px"/>
   </div>
   
 
