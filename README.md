@@ -13,12 +13,12 @@
   地址[http://47.102.204.173](http://47.102.204.173)
   
   <div style="display:flex;flex-wrap:wrap">
-    <img src="./imgs/首页.png" width=93.75  height=203 style="margin:10px"/>
-    <img src="./imgs/歌单列表.png" width=93.75  height=203 style="margin:10px"/>
-    <img src="./imgs/播放器.png" width=93.75  height=203 style="margin:10px"/>
-    <img src="./imgs/搜索界面.png" width=93.75  height=203 style="margin:10px"/>
-    <img src="./imgs/搜索结果.png" width=93.75  height=203 style="margin:10px"/>
-    <img src="./imgs/收藏歌曲.png" width=93.75  height=203 style="margin:10px"/>
+    <img src="./imgs/首页.png" width=131.25  height=284.2 style="margin:10px"/>
+    <img src="./imgs/歌单列表.png" width=131.25  height=284.2 style="margin:10px"/>
+    <img src="./imgs/播放器.png" width=131.25  height=284.2 style="margin:10px"/>
+    <img src="./imgs/搜索界面.png" width=131.25  height=284.2 style="margin:10px"/>
+    <img src="./imgs/搜索结果.png" width=131.25  height=284.2 style="margin:10px"/>
+    <img src="./imgs/收藏歌曲.png" width=131.25  height=284.2 style="margin:10px"/>
   </div>
   
 
