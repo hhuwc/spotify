@@ -5,10 +5,11 @@ Vue.use(Router);
 
 import Home from "../components/home";
 import Setting from '../components/setting';
-import Library from "../components/library/library";
 import Search from '../components/search/search';
 import PlayList from '../components/playlist/playlist';
 import SearchTrue from '../components/search/search-true';
+
+const loadView = (path) => () => import(/* webpackChunkName: "lazy-load" */ `components/${path}`);
 
 export default new Router({
   routes: [
@@ -41,7 +42,7 @@ export default new Router({
     },
     {
       path: "/library",
-      component: Library,
+      component: loadView("library/library"),
       children: [
         {
           path: "playlist/:id",
